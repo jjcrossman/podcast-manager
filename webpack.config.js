@@ -1,17 +1,14 @@
 module.exports = {
-  entry: [
-    "webpack-dev-server/client?http://localhost:8080"
-    , "./public/src/app.js"
-  ]
+  entry: "./public/src/app.js"
   , module: {
     loaders: [
       {
-        test: /\.js/
+        test: /\.js$/
         , exclude: /node_modules/
         , loader: "babel"
       }
       , {
-        test: /\.css/
+        test: /\.css$/
         , exclude: /node_modules/
         , loader: "style!css"
       }

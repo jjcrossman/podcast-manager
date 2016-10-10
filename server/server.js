@@ -7,9 +7,8 @@ const port = 4000;
 // const mongoUri = "mongodb://localhost:27017/podcast-manager";
 
 // USE
-app.use( cors() );
 app.use( json() );
-app.use( express.static( `${ __dirname }/public` ) );
+app.use( express.static( `${ __dirname }/../public` ) );
 
 // Mongoose connection to MongoDB
 

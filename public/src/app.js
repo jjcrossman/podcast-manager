@@ -3,7 +3,7 @@ import angular from "angular";
 import uiRouter from "angular-ui-router";
 
 // Styles
-import "./pmStyles.css";
+import "../styles/pmStyles.css";
 
 // Templates
 import loginTmpl from "./routes/templates/login-tmpl.html";
