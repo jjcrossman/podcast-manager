@@ -4,7 +4,8 @@
   "description": "a podcast manager",
   "main": "server.js",
   "scripts": {
-    "start": "webpack-dev-server -d"
+    "start": "webpack-dev-server -d",
+    "webpack": "webpack --progress --colors --watch"
   },
   "author": "JJ Crossman",
   "license": "UNLICENSED",
@@ -16,7 +17,14 @@
     "html-loader": "^0.4.4",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.1",
+    "express-session": "^1.14.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
   },
   "dependencies": {
     "angular": "^1.5.8",
