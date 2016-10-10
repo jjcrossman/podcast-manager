@@ -1,7 +1,7 @@
 module.exports = {
   entry: [
     "webpack-dev-server/client?http://localhost:8080"
-    , "./src/app.js"
+    , "./public/src/app.js"
   ]
   , module: {
     loaders: [
@@ -25,10 +25,10 @@ module.exports = {
     extensions: [ "", ".js", ".css" ]
   }
   , output: {
-    path: __dirname + "/"
+    path: "./public"
     , filename: "bundle.js"
   }
   , devServer: {
-    contentBase: "./" //tells webpack where index.html lives
+    contentBase: "./public" //tells webpack where index.html lives
   }
 };
