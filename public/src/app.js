@@ -4,7 +4,7 @@ import uiRouter from "angular-ui-router";
 
 
 // Styles
-import "../styles/directory.sass";
+import "../styles/sass/directory.sass";
 import "../styles/bootstrap/css/bootstrap.css";
 
 // Templates
