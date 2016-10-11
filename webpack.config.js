@@ -8,9 +8,18 @@ module.exports = {
         , loader: "babel"
       }
       , {
+        test: /\.(sass|scss)$/
+        , exclude: /node_modules/
+        , loader: "style!css!sass"
+      }
+      , {
         test: /\.css$/
         , exclude: /node_modules/
         , loader: "style!css"
+      }
+      , {
+        test: /\.(woff|woff2|eot|ttf|svg)$/
+        , loader: "url"
       }
       , {
         test: /\.html$/
@@ -19,7 +28,7 @@ module.exports = {
     ]
   }
   , resolve: {
-    extensions: [ "", ".js", ".css" ]
+    extensions: [ "", ".js", ".sass" ]
   }
   , output: {
     path: "./public"

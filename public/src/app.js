@@ -2,8 +2,10 @@
 import angular from "angular";
 import uiRouter from "angular-ui-router";
 
+
 // Styles
-import "../styles/pmStyles.css";
+import "../styles/directory.sass";
+import "../styles/bootstrap/css/bootstrap.css";
 
 // Templates
 import loginTmpl from "./routes/templates/login-tmpl.html";
