@@ -4,14 +4,14 @@ import uiRouter from "angular-ui-router";
 
 
 // Styles
-import "../styles/sass/directory.sass";
 import "../styles/bootstrap/css/bootstrap.css";
+import "../styles/sass/directory.sass";
 
 // Templates
-import loginTmpl from "./routes/templates/login-tmpl.html";
+import loginTmpl from "./views/templates/login-tmpl.html";
 
 // Controllers
-import loginCtrl from "./routes/controllers/loginCtrl.js";
+import loginCtrl from "./views/controllers/loginCtrl.js";
 
 // Factories
 
