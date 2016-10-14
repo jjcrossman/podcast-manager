@@ -65,7 +65,7 @@ $pal-playerg2: #636363
   left: 0%
   +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
 
-.toggle
+.mm.toggle
   .fa.fa-info-circle
     font-size: 2em
     position: absolute
@@ -134,8 +134,9 @@ $pal-playerg2: #636363
     margin-left: 62px
   // background-color: blue
 
-/***************** DETAILS ******************/
-
+/*******************************************************/
+/***************** DETAILS *****************************/
+/*******************************************************/
 
 .mm#pm-details-slider
   height: 70vh
@@ -153,23 +154,64 @@ $pal-playerg2: #636363
 
 .mm.pm-details-jumbotron
   background-color: purple
-  .fa.fa-long-arrow-left
+  .fa.fa-arrow-circle-left
     position: absolute
     top: 4%
     left: 4%
     font-size: 3em
     color: #eeeeee
-  .fa
+  .fa.fa-info-circle
+    position: absolute
+    bottom: 6%
+    right: 6%
+    font-size: 4em
+    color: #eeeeee
+  h1
+    position: absolute
+    left: 5%
+    bottom: 10%
+    color: #ffffff
 
 .mm.pm-details-episodes-list-wrapper
   height: 60%
+  overflow-y: scroll
+  position: relative
 
 .mm.pm-details-episodes-list
+  height: 100%
   background-color: green
 
-#detailstoggler
+.mm#detailstoggler
   display: none
   &:checked + #pm-details-slider
     right: 0%
   &:checked ~ #pm-podcast-grid
     left: -100%
+
+.mm.pm-episodes-li
+  height: 14%
+  background-color: red
+
+.mm.pm-li-title
+  justify-content: flex-start
+  padding-left: 5%
+  h3
+    margin: 0
+
+.mm.pm-li-buttons
+  justify-content: flex-end
+  padding-right: 5%
+  .fa.fa-play-circle
+    color: #eeeeee
+    font-size: 3.5em
+
+/*******************************************************/
+/***************** Episode Detail Expansion ************/
+/******************************************************/
+
+.mm#pm-li-active
+  width: 100%
+  position: absolute
+  top: 0%
+  left: 0%
+  background-color: yellow
