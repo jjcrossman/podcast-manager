@@ -1,0 +1,174 @@
+// Color Pallete
+$pal-green: #3fbe8f
+$pal-blue: #018897
+$pal-bggrey: #535353
+$pal-mediumgrey2: #494949
+$pal-mediumgrey: #646464
+$pal-lightgrey: #969696
+$pal-white: #dddddd
+$pal-facebook: #3c5a96
+$pal-twitter: #30a8dc
+$pal-google: #d9453d
+$pal-playergoogle: #222327
+$pal-playerg1: #424242
+$pal-playerg2: #636363
+
+@import _mixins
+
+.mm.pm-header-bar
+  height: 5vh
+  width: 100%
+  // border: 2px solid yellow
+  overflow: hidden
+  background-color: #000000
+  form
+    width: 100%
+  .pm-noavatar-icon
+    top: 0%
+    left: 0%
+    font-size: 3em
+    color: #dddddd
+
+.mm.pm-header-search-bar
+  height: 100%
+  margin: 0
+
+.mm.pm-mobile-dropdown
+  left: -128%
+
+.mm#pm-logo
+  height: 70%
+  width: 90%
+  max-height: 82px
+  max-width: 280px
+
+.mm.pm-h100
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+
+.mm.pm-button-bar
+  height: 6vh
+  width: 100%
+  // border: 2px solid yellow
+  +bgGradient($pal-green,$pal-blue)
+  h2
+    margin: 0
+    color: #eeeeee
+
+.mm#pm-podcast-grid
+  height: 70vh
+  overflow-y: scroll
+  overflow-x: hidden
+  position: relative
+  left: 0%
+  +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
+
+.toggle
+  .fa
+    font-size: 2em
+    position: absolute
+    bottom: 20px
+    right: 20px
+
+
+.mm.pm-podcast-grid-row
+  height: 34%
+  div
+    background: radial-gradient(red,yellow,green)
+
+.mm.pm-player-bar
+  height: 19vh
+  +bgGradient($pal-playerg1,$pal-playerg2)
+
+.mm.pm-player-artwork
+  // background-color: purple
+
+.mm.pm-nothing-playing-icon
+  font-size: 8em
+  color: #eeeeee
+
+.mm.pm-player
+  height: 100%
+
+.mm.pm-player-title-duration-wrapper
+  height: 50%
+  // background-color: green
+
+.mm.pm-podepi-title
+  flex-direction: column
+  align-items: flex-start
+  h4
+    margin-bottom: 10px
+    color: #ffffff
+  h5
+    margin: 0
+    color: #eeeeee
+  // background-color: orange
+
+.mm.pm-episode-duration
+  flex-direction: column
+  justify-content: flex-end
+  .fa
+    font-size: 1.2em
+    color: #eeeeee
+  p
+    font-size:
+    color: #eeeeee
+  // background-color: pink
+
+.mm.pm-player-controls-wrapper
+  height: 50%
+  // background-color: aqua
+
+.mm.pm-player-controls
+  justify-content: flex-start
+  .fa
+    color: #eeeeee
+    font-size: 2.5em
+    margin-left: 12px
+  .fa-fast-backward
+    margin-left: 0px
+  .fa-volume-up
+    margin-left: 62px
+  // background-color: blue
+
+/***************** DETAILS ******************/
+
+
+.mm#pm-details-slider
+  height: 70vh
+  width: 100vw
+  position: fixed
+  right: -100%
+  +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
+  z-index: 1
+
+.mm.pm-details-wrapper
+  height: 100%
+
+.mm.pm-details-jumbotron-wrapper
+  height: 40%
+
+.mm.pm-details-jumbotron
+  background-color: purple
+  .fa
+    position: absolute
+    top: 4%
+    left: 4%
+    font-size: 3em
+    color: #eeeeee
+
+.mm.pm-details-episodes-list-wrapper
+  height: 60%
+
+.mm.pm-details-episodes-list
+  background-color: green
+
+#detailstoggler
+  display: none
+  &:checked + #pm-details-slider
+    right: 0%
+  &:checked ~ #pm-podcast-grid
+    left: -100%
