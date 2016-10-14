@@ -10,6 +10,8 @@ $pal-facebook: #3c5a96
 $pal-twitter: #30a8dc
 $pal-google: #d9453d
 
+@import _mixins
+
 body
   height: 100vh
   width: 100%
@@ -40,7 +42,7 @@ body
 
   #pm-logo
     height: 72%
-    width: 28%
+    width: 38%
     max-height: 82px
     max-width: 280px
 
@@ -57,14 +59,15 @@ body
     +bgGradient($pal-green,$pal-blue)
     h2
       margin: 0
+      font-size: 1.7em
       color: #eeeeee
 
   .pm-gap
     height: 29vh
     background-color: black
     background-image: url("../../src/features/images/jumbotron.jpg")
-    background-position-y: 5%
-    background-size: 100%
+    background-position-x: 52%
+    background-size: 130%
     background-repeat: no-repeat
 
 
@@ -77,10 +80,10 @@ body
     align-items: center
     h3
       color: #eeeeee
-      font-size: 24px
+      font-size: 1.52em
     h4
       color: #eeeeee
-      font-size: 18px
+      font-size: 1.07em
 
   .pm-login-circle
     background-color: rgba(63,190,143,0.4)
@@ -104,26 +107,26 @@ body
     background-color: $pal-darkgrey
     height: 20vh
     .fa
-      font-size: 8em
+      font-size: 6.5em
 
   #pm-login-twitter-icon
     color: $pal-twitter
     position: absolute
-    top: -57px
+    top: -47px
     &:hover
       cursor: pointer
 
   #pm-login-facebook-icon
     color: $pal-facebook
     position: absolute
-    top: -57px
+    top: -47px
     &:hover
       cursor: pointer
 
   #pm-login-google-icon
     color: $pal-google
     position: absolute
-    top: -57px
+    top: -47px
     &:hover
       cursor: pointer
 
@@ -132,7 +135,7 @@ body
     +bgGradient($pal-green,$pal-blue)
     h2
       color: #eeeeee
-      font-size: 30px
+      font-size: 26px
       &:hover
         cursor: pointer
 

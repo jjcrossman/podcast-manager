@@ -11,3 +11,45 @@ $pal-twitter: #30a8dc
 $pal-google: #d9453d
 
 @import _mixins
+
+.mm.pm-header-bar
+  height: 5vh
+  width: 100%
+  // border: 2px solid yellow
+  overflow: hidden
+  background-color: #000000
+  form
+    width: 100%
+  .pm-noavatar-icon
+    top: 0%
+    left: 0%
+    font-size: 3em
+    color: #dddddd
+
+.mm.pm-header-search-bar
+  height: 100%
+  margin: 0
+
+.mm.pm-mobile-dropdown
+  left: -128%
+
+.mm#pm-logo
+  height: 70%
+  width: 90%
+  max-height: 82px
+  max-width: 280px
+
+.mm.pm-h100
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+
+.mm.pm-button-bar
+  height: 6vh
+  width: 100%
+  // border: 2px solid yellow
+  +bgGradient($pal-green,$pal-blue)
+  h2
+    margin: 0
+    color: #eeeeee

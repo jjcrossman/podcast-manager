@@ -16,16 +16,17 @@ import "../styles/sass/directory.sass";
 
 // Templates
 import loginTmpl from "./views/templates/login-tmpl.html";
+import minemoreTmpl from "./views/templates/minemore-tmpl.html"
 
 // Controllers
 import loginCtrl from "./views/controllers/loginCtrl.js";
+import mineCtrl from "./views/controllers/mineCtrl.js";
 
 // Factories
 
 // Directives
 import Header from "./features/Header/Header.js";
 import Player from "./features/Player/Player.js";
-import MineMore from "./features/MineMore/MineMore.js";
 
 /*******************************************************/
 
@@ -34,12 +35,12 @@ angular.module( 'PodcastManager', [ uiRouter ] )
 
 // Controllers
 .controller( "loginCtrl", loginCtrl )
+.controller( "mineCtrl", mineCtrl )
 // Factories
 
 // Directives
 .directive( "header", Header )
 .directive( "player", Player )
-.directive( "minemore", MineMore )
 
 .config( function ( $stateProvider, $urlRouterProvider ) {
 
@@ -50,6 +51,11 @@ angular.module( 'PodcastManager', [ uiRouter ] )
       url: "/"
       , template: loginTmpl
       , controller: "loginCtrl"
+    } )
+    .state( "mine", {
+      url: "/mine"
+      , template: minemoreTmpl
+      , controller: "mineCtrl"
     } );
 
 } );
