@@ -131,7 +131,7 @@ $pal-playerg2: #636363
   .fa-fast-backward
     margin-left: 0px
   .fa-volume-up
-    margin-left: 62px
+    margin-left: 23px
   // background-color: blue
 
 /*******************************************************/
@@ -163,7 +163,7 @@ $pal-playerg2: #636363
   .fa.fa-info-circle
     position: absolute
     bottom: 6%
-    right: 6%
+    right: 3.7%
     font-size: 4em
     color: #eeeeee
   h1
@@ -191,16 +191,18 @@ $pal-playerg2: #636363
 .mm.pm-episodes-li
   height: 14%
   background-color: red
+  +transition(all, .4s, linear, 0s)
 
 .mm.pm-li-title
-  justify-content: flex-start
   padding-left: 5%
+  height: 100%
+  justify-content: flex-start
   h3
     margin: 0
 
 .mm.pm-li-buttons
   justify-content: flex-end
-  padding-right: 5%
+  padding-right: 4%
   .fa.fa-play-circle
     color: #eeeeee
     font-size: 3.5em
@@ -209,9 +211,66 @@ $pal-playerg2: #636363
 /***************** Episode Detail Expansion ************/
 /******************************************************/
 
+.mm.pm-episode-title-wrapper
+  height: 100%
+  background-color: orange
+
+.mm.pm-episode-title
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: flex-start
+
+.mm.pm-episode-description-wrapper
+  display: none
+  height: 78%
+  background-color: green
+
+.mm.pm-episode-description
+  height: 100%
+  display: flex
+  align-items: flex-start
+  justify-content: flex-start
+  overflow-y: scroll
+
+#pm-li-active > .mm.pm-li-title
+  width: 100%
+
+.mm.pm-episodes-li .fa.fa-clock-o
+  display: none
+
+.mm.pm-episodes-li .pm-episode-time
+  display: none
+
 .mm#pm-li-active
   width: 100%
-  position: absolute
-  top: 0%
+  height: 42%
+  z-index: 1
+  position: fixed
+  top: 39%
   left: 0%
-  background-color: yellow
+  display: flex
+  background-color: blue
+  & .mm.pm-episode-title-wrapper
+    height: 22%
+  & .mm.pm-episode-description-wrapper
+    display: table
+  .mm.pm-h100
+    align-items: flex-start
+    padding-top: 5%
+    h3
+      color: #eeeeee
+    p
+      margin-top: -5%
+      color: #eeeeee
+  .fa.fa-play-circle
+    margin-top: -16%
+  & .fa.fa-clock-o
+    font-size: 1.9em
+    margin-left: 4%
+    display: inline-block
+  & p.pm-episode-time
+    font-size: 1.4em
+    margin-bottom: 0px
+    margin-left: 2%
+    display: block
