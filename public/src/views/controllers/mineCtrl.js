@@ -14,6 +14,14 @@ function mineCtrl( $scope ) {
     }
   };
 
+  $scope.closeDescriptionAndLi = () => {
+    console.log( "closeDescriptionAndLi fired" );
+    if ( $scope.activeLi ) {
+      console.log( "passed" );
+      $scope.activeLi = "";
+    }
+  };
+
   init();
 
 }
