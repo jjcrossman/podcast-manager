@@ -57,6 +57,18 @@ $pal-playerg2: #636363
     margin: 0
     color: #eeeeee
 
+.mm#pm-mine-bar
+  justify-content: space-between
+  padding: 0 5%
+  i
+    color: #eeeeee
+    font-size: 2em
+  #pm-mine
+    position: absolute
+    left: 43.1%
+  #pm-more
+    font-size: 140%
+
 .mm#pm-podcast-grid
   height: 70vh
   overflow-y: scroll
@@ -171,6 +183,28 @@ $pal-playerg2: #636363
     left: 5%
     bottom: 10%
     color: #ffffff
+    +transition(all,.4s,linear,0s)
+
+.mm#pm-podcast-description-card
+  justify-content: center
+  align-items: flex-start
+  height: 50%
+  width: 75%
+  position: absolute
+  bottom: -100%
+  left: 8%
+  overflow-y: scroll
+  +transition(all,.5s,linear,0s)
+  p
+    color: #eeeeee
+
+.mm#pm-podcast-description-card-toggler
+  display: none
+  &:checked ~ #pm-podcast-description-card
+    bottom: 7%
+  &:checked + h1
+    bottom: 58%
+
 
 .mm.pm-details-episodes-list-wrapper
   height: 60%
@@ -213,7 +247,10 @@ $pal-playerg2: #636363
 
 .mm.pm-episode-title-wrapper
   height: 100%
+  width: 94.4%
   background-color: orange
+  position: absolute
+  +transition(all,.4s,linear,0s)
 
 .mm.pm-episode-title
   height: 100%
@@ -222,9 +259,11 @@ $pal-playerg2: #636363
   justify-content: flex-start
 
 .mm.pm-episode-description-wrapper
-  display: none
+  position: absolute
+  bottom: -1200%
   height: 78%
   background-color: green
+  +transition(all,1.4s,cubic-bezier(0.4, 0, 0, 0.99),0s)
 
 .mm.pm-episode-description
   height: 100%
@@ -237,10 +276,15 @@ $pal-playerg2: #636363
   width: 100%
 
 .mm.pm-episodes-li .fa.fa-clock-o
-  display: none
+  font-size: 0em
+  margin-left: 4%
+  +transition(all,.4s,linear,0s)
 
 .mm.pm-episodes-li .pm-episode-time
-  display: none
+  font-size: 0em
+  margin-bottom: 0px
+  margin-left: 2%
+  +transition(all,.4s,linear,0s)
 
 .mm#pm-li-active
   width: 100%
@@ -253,8 +297,10 @@ $pal-playerg2: #636363
   background-color: blue
   & .mm.pm-episode-title-wrapper
     height: 22%
+    bottom: 78%
+    width: 94.4%
   & .mm.pm-episode-description-wrapper
-    display: table
+    bottom: 0%
   .mm.pm-h100
     align-items: flex-start
     padding-top: 5%
@@ -268,9 +314,9 @@ $pal-playerg2: #636363
   & .fa.fa-clock-o
     font-size: 1.9em
     margin-left: 4%
-    display: inline-block
+    bottom: 0%
   & p.pm-episode-time
     font-size: 1.4em
     margin-bottom: 0px
     margin-left: 2%
-    display: block
+    bottom: 0%
