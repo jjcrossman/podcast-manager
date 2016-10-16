@@ -25,8 +25,11 @@ import mineCtrl from "./views/controllers/mineCtrl.js";
 // Factories
 
 // Directives
-import Header from "./features/Header/Header.js";
-import Player from "./features/Player/Player.js";
+import HeaderBar from "./features/HeaderBar/HeaderBar.js";
+import PlayerBar from "./features/PlayerBar/PlayerBar.js";
+import MineMoreBar from "./features/MineMoreBar/MineMoreBar.js";
+import PodcastGrid from "./features/PodcastGrid/PodcastGrid.js";
+import LoginBox from "./features/LoginBox/LoginBox.js";
 
 /*******************************************************/
 
@@ -39,8 +42,11 @@ angular.module( 'PodcastManager', [ uiRouter ] )
 // Factories
 
 // Directives
-.directive( "header", Header )
-.directive( "player", Player )
+.directive( "headerBar", HeaderBar )
+.directive( "playerBar", PlayerBar )
+.directive( "mineMoreBar", MineMoreBar )
+.directive( "podcastGrid", PodcastGrid )
+.directive( "loginBox", LoginBox )
 
 .config( function ( $stateProvider, $urlRouterProvider ) {
 

@@ -1,5 +1,4 @@
-function moreCtrl( $scope ) {
-
+function podcastgridCtrl( $scope ) {
   function init() {
     $scope.activeLi = "";
   }
@@ -23,7 +22,6 @@ function moreCtrl( $scope ) {
   };
 
   init();
-
 }
 
-export default moreCtrl;
+export default podcastgridCtrl;
