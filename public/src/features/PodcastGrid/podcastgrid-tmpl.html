@@ -29,7 +29,7 @@
         <div class="mm" id="pm-podcast-description-card">
 
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            {{ detailsPodcastDescription }}
           </p>
         </div>
 
@@ -39,12 +39,12 @@
       <div class="row mm pm-details-episodes-list-wrapper">
         <div class="col-xs-12 mm pm-details-episodes-list">
 
-          <div class="row mm pm-episodes-li" ng-attr-id="{{ activeLi }}">
+          <div ng-repeat="detail in details track by $index" class="row mm pm-episodes-li" ng-attr-id="{{ activeLi }}">
 
             <div class="col-xs-10 mm pm-li-title">
                 <div class="row mm pm-episode-title-wrapper">
                   <div class="col-xs-12 mm pm-episode-title">
-                    <h3>Episode Title</h3>
+                    <h3>{{ detail.title }}</h3>
 
                     <i class="fa fa-clock-o"></i><p class="pm-episode-time">26:05</p>
 
@@ -54,8 +54,7 @@
                     <div class="col-xs-12 mm pm-episode-description">
 
 
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                      <p>{{ detail.description }}</p>
                     </div>
 
                 </div>
@@ -64,57 +63,6 @@
               <i ng-click="toggleActiveLi()" class="fa fa-play-circle" aria-hidden="true"></i>
             </div>
           </div>
-
-          <div class="row mm pm-episodes-li" ng-attr-id="{{ activeLi }}">
-
-            <div class="col-xs-10 mm pm-li-title">
-                <div class="row mm pm-episode-title-wrapper">
-                  <div class="col-xs-12 mm pm-episode-title">
-                    <h3>Episode Title</h3>
-
-                    <i class="fa fa-clock-o"></i><p class="pm-episode-time">26:05</p>
-
-                  </div>
-                </div>
-                <div class="row mm pm-episode-description-wrapper">
-                    <div class="col-xs-12 mm pm-episode-description">
-
-
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-xs-2 mm pm-h100 pm-li-buttons">
-              <i ng-click="toggleActiveLi()" class="fa fa-play-circle" aria-hidden="true"></i>
-            </div>
-          </div>
-
-          <div class="row mm pm-episodes-li" ng-attr-id="{{ activeLi }}">
-
-            <div class="col-xs-10 mm pm-li-title">
-                <div class="row mm pm-episode-title-wrapper">
-                  <div class="col-xs-12 mm pm-episode-title">
-                    <h3>Episode Title</h3>
-
-                    <i class="fa fa-clock-o"></i><p class="pm-episode-time">26:05</p>
-
-                  </div>
-                </div>
-                <div class="row mm pm-episode-description-wrapper">
-                    <div class="col-xs-12 mm pm-episode-description">
-
-
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-xs-2 mm pm-h100 pm-li-buttons">
-              <i ng-click="toggleActiveLi()" class="fa fa-play-circle" aria-hidden="true"></i>
-            </div>
           </div>
 
 

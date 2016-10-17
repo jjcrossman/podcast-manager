@@ -10,6 +10,8 @@ function PodcastGrid() {
       , populateDetails: "="
       , detailsPodcastTitle: "="
       , detailsPodcastArtwork: "="
+      , detailsPodcastDescription: "="
+      , details: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 

@@ -1,17 +1,17 @@
-function moreFcty ( $http ) {
+function moreFcty ( $http, $q ) {
 
   let itunesSearchUrl = "https://itunes.apple.com/search?term=";
   let itunesSearchQuery = "";
   let itunesSearchParameters = "&country=us&media=podcast&entity=podcast&limit=10";
+
   return {
 
     searchItunes( searchTerm ) {
       itunesSearchQuery = searchTerm;
       return $http.get( `${ itunesSearchUrl }${ itunesSearchQuery }${ itunesSearchParameters }` ).then( res => {
-        console.log( res );
+          console.log( res );
         if ( res.data.resultCount && res.data.resultCount !== 0 ) {
           console.log( `Results retrieved from iTunes: ${ res.data.resultCount }` );
-          console.log( res.data.results );
           let titles = [], feeds = [], artworks = [];
           for ( let i = 0; i < res.data.results.length; i++ ) {
             titles.push( res.data.results[i].trackName );
@@ -26,27 +26,72 @@ function moreFcty ( $http ) {
             podcastTitles: titles
             , podcastFeeds: feeds
             , podcastArtworks: artworks
+            , podcastDescriptions: []
+            , podcastEpisodeTitles: []
+            , podcastEpisodeDescriptions: []
           }
-          return returnObj;
-        } else {
-          console.log( "iTunes search returned nothing" );
-          return;
-        }
-      } );
 
-  //     $.get("http://files.libertyfund.org/econtalk/EconTalk.xml", function (data) {
-  //     $(data).find("item").each(function () { // or "item" or whatever suits your feed
-  //         var el = $(this);
-  //
-  //         console.log("------------------------");
-  //         console.log("title      : " + el.find("title").text());
-  //         console.log("author     : " + el.find("author").text());
-  //         console.log("description: " + el.find("description").text());
-  //     });
-  // });
+          return returnObj;
+        } } )
+          .catch( error => {
+            console.log( "Error in moreFcty", error );
+          } );
     }
 
+    , retrieveRSSFeedInformation( feed ) {
+
+    return $.get( feed ).then( function( data ) {
+      let channel = $(data).find("channel");
+      let item = $(data).find("item");
+      let entry = $(data).find("entry");
+      console.log( feed );
+      let returnObj = {
+        podcastDescription: ""
+        , episodeTitles: []
+        , episodeDescriptions: []
+        , feed: feed
+      };
+      channel.each( function() {
+        var el = $(this);
+        console.log( "LAWL" );
+
+        let description = el.find("description:first").text();
+
+        returnObj.podcastDescription = description;
+
+      } );
+      if ( item ) {
+        item.each( function() {
+          var el = $(this);
+          console.log( "LOL" );
+
+          let episodeTitle = el.find("title").text();
+          let episodeDescription = el.find("description").text();
+
+          returnObj.episodeTitles.push( episodeTitle );
+          returnObj.episodeDescriptions.push( episodeDescription) ;
+
+        } );
+      } else {
+        entry.each( function() {
+          var el = $(this);
+
+          let episodeTitle = el.find("title").text();
+          let episodeDescription = el.find("description").text();
+
+          returnObj.episodeTitles.push( episodeTitle );
+          returnObj.episodeDescriptions.push( episodeDescription );
+
+        } );
+      }
+      console.log( returnObj );
+      return returnObj;
+    } ).catch( error => {
+      console.log( "error in moreFcty", error );
+    } );
   }
+  }
+
 }
 
 export default moreFcty;

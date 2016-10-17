@@ -6,10 +6,10 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     $scope.whichView = "pm-mine-bar";
     $timeout( function(){$scope.whichView = "pm-more-bar";}, 1);
     $scope.podcasts = [];
+    $scope.details = [];
   }
 
   $scope.searchItunes = ( searchTerm ) => {
-    console.log( "moreCtrl fired search fn" );
     moreFcty.searchItunes( searchTerm )
       .then( data => {
         console.log( "Promise fulfilled in moreCtrl" );
@@ -20,12 +20,16 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
               title: data.podcastTitles[i]
               , feed: data.podcastFeeds[i]
               , artwork: data.podcastArtworks[i]
+              , episodes: []
             } );
             if ( $scope.podcasts[i].title.length > 50 ) {
               $scope.podcasts[i].title = $scope.podcasts[i].title.slice(0, 50) + "...";
             }
           }
           console.log( $scope.podcasts );
+          for ( let i = 0; i < data.podcastFeeds.length; i++ ) {
+            $scope.retrieveRSSFeedInformation( data.podcastFeeds[i] );
+          }
           return;
         } else {
           console.log( "No data returned to moreCtrl" );
@@ -36,11 +40,36 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       } );
   }
 
+  $scope.retrieveRSSFeedInformation = ( feed ) => {
+    moreFcty.retrieveRSSFeedInformation( feed )
+    .then( data => {
+      console.log( "RSS feed data in moreCtrl", data );
+      for ( let i = 0; i < $scope.podcasts.length; i++ ) {
+        if ( $scope.podcasts[i].feed === data.feed ) {
+          $scope.podcasts[i].description = data.podcastDescription;
+          $scope.podcasts[i].episodeTitles = data.episodeTitles;
+          $scope.podcasts[i].episodeDescriptions= data.episodeDescriptions;
+        }
+      }
+    } )
+    .catch( error => {
+      console.log( "Error in moreCtrl", error );
+    } );
+  };
+
   $scope.populateDetails = ( podcast ) => {
     console.log( "populateDetails fired" );
     console.log( podcast );
     $scope.detailsPodcastTitle = podcast.title;
     $scope.detailsPodcastArtwork = podcast.artwork;
+    $scope.detailsPodcastDescription = podcast.description;
+    for ( let i = 0; i < podcast.episodeTitles.length; i++ ) {
+      $scope.details.push( {
+        title: podcast.episodeTitles[i]
+        , description: podcast.episodeDescriptions[i]
+      } );
+    }
+    // Make episodes repeatable.
     // Search the podcast's XML RSS feed for description, episode titles and descriptions, and durations.
   };
 
