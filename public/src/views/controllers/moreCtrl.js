@@ -40,6 +40,7 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     console.log( "populateDetails fired" );
     console.log( podcast );
     $scope.detailsPodcastTitle = podcast.title;
+    $scope.detailsPodcastArtwork = podcast.artwork;
     // Search the podcast's XML RSS feed for description, episode titles and descriptions, and durations.
   };
 

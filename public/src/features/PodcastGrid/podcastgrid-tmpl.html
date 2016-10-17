@@ -13,11 +13,19 @@
           <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
         </label>
         <input type="checkbox" class="mm" id="pm-podcast-description-card-toggler"></input>
-        <h1>{{ detailsPodcastTitle }}</h1>
+        <div class="mm pm-details-title-ticker">
+
+          <h1>{{ detailsPodcastTitle }}</h1>
+
+        </div>
+
+        <img ng-src="{{ detailsPodcastArtwork }}" class="mm" id="pm-details-artwork"></img>
 
           <label for="pm-podcast-description-card-toggler" class="mm toggle">
         <i class="fa fa-info-circle" aria-hidden="true"></i>
       </label>
+
+        <i class="fa fa-plus mm" id="pm-subscribe-button"></i>
         <div class="mm" id="pm-podcast-description-card">
 
           <p>

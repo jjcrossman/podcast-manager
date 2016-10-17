@@ -11,7 +11,7 @@ const port = 4000;
 const mongoUri = "mongodb://localhost:27017/podcastmanager";
 
 // USE
-// app.use( cors( corsOptions ) );
+app.use( cors( corsOptions ) );
 app.use( json() );
 app.use( session( config.podcastManager ) );
 app.use( express.static( `${ __dirname }/../public` ) );

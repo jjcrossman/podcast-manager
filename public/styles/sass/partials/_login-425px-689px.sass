@@ -1,0 +1,140 @@
+// Color Pallete
+$pal-green: #3fbe8f
+$pal-blue: #018897
+$pal-bggrey: #444444
+$pal-darkgrey: #494949
+$pal-mediumgrey: #646464
+$pal-lightgrey: #969696
+$pal-white: #dddddd
+$pal-facebook: #3c5a96
+$pal-twitter: #30a8dc
+$pal-google: #d9453d
+
+body
+  height: 100vh
+  width: 100%
+  // border: 3px solid yellow
+  // overflow: hidden
+  background-color: $pal-bggrey
+
+  .pm-header-bar
+    height: 5vh
+    width: 100%
+    // border: 2px solid yellow
+    overflow: hidden
+    background-color: #000000
+    form
+      width: 100%
+    .pm-noavatar-icon
+      top: 0%
+      left: 0%
+      font-size: 3em
+      color: #dddddd
+
+  .pm-header-search-bar
+    height: 100%
+    margin: 0
+
+  .pm-mobile-dropdown
+    left: -128%
+
+  #pm-logo
+    height: 72%
+    width: 28%
+    max-height: 82px
+    max-width: 280px
+
+  .hm.pm-h100
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+
+  .pm-button-bar
+    height: 6vh
+    width: 100%
+    // border: 2px solid yellow
+    +bgGradient($pal-green,$pal-blue)
+    h2
+      margin: 0
+      color: #eeeeee
+
+  .pm-gap
+    height: 29vh
+    background-color: black
+    background-image: url("../../src/features/images/jumbotron.jpg")
+    background-position-y: 5%
+    background-size: 100%
+    background-repeat: no-repeat
+
+
+  .pm-login-box
+    background-color: $pal-mediumgrey
+    height: 24vh
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    h3
+      color: #eeeeee
+      font-size: 20px
+    h4
+      color: #eeeeee
+      font-size: 18px
+
+  .pm-login-circle
+    background-color: rgba(63,190,143,0.4)
+    position: absolute
+    top: -32%
+    width: 7.75em
+    height: 7.75em
+    border-radius: 50%
+    border: 14px solid rgba(0,0,0,0.6)
+    -moz-background-clip: padding
+    -webkit-background-clip: padding
+    background-clip: padding-box
+    .fa
+      position: absolute
+      top: 12%
+      left: 23.5%
+      font-size: 4em
+      color: #ffffff
+
+  .pm-login-icons
+    background-color: $pal-darkgrey
+    height: 20vh
+    .fa
+      font-size: 7em
+
+  #pm-login-twitter-icon
+    color: $pal-twitter
+    position: absolute
+    top: -50px
+    &:hover
+      cursor: pointer
+
+  #pm-login-facebook-icon
+    color: $pal-facebook
+    position: absolute
+    top: -50px
+    &:hover
+      cursor: pointer
+
+  #pm-login-google-icon
+    color: $pal-google
+    position: absolute
+    top: -50px
+    &:hover
+      cursor: pointer
+
+  .pm-try-it-bar
+    height: 16vh
+    +bgGradient($pal-green,$pal-blue)
+    h2
+      color: #eeeeee
+      font-size: 30px
+      &:hover
+        cursor: pointer
+
+  .pm-text-align-center
+    text-align: center

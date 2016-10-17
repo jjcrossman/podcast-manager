@@ -9,6 +9,7 @@ function PodcastGrid() {
       podcasts: "="
       , populateDetails: "="
       , detailsPodcastTitle: "="
+      , detailsPodcastArtwork: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 

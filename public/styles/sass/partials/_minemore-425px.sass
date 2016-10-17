@@ -218,45 +218,84 @@ $pal-playerg2: #636363
   height: 40%
 
 .mm.pm-details-jumbotron
-  background-color: purple
   .fa.fa-arrow-circle-left
     position: absolute
     top: 4%
     left: 4%
     font-size: 3em
-    color: #eeeeee
+    color: rgba(238, 238, 238, 0.9)
+    text-shadow: 3px 3px 3px #333333
   .fa.fa-info-circle
     position: absolute
-    top: 71%
+    top: 65%
     right: 3.7%
     font-size: 4em
-    color: #eeeeee
-  h1
+    color: rgba(238, 238, 238, 0.9)
+    text-shadow: 3px 3px 3px #333333
+
+.mm.pm-details-title-ticker
+    min-height: 23%
+    max-height: 36%
+    +bgGradient(rgba(63,190,143,0.8), rgba(0,0,0,0.3))
+    width: 100%
+    display: flex
+    justify-content: flex-start
+    align-items: flex-start
     position: absolute
-    left: 5%
-    bottom: 10%
-    color: #ffffff
-    +transition(all,.4s,linear,0s)
+    bottom: 0%
+    left: 0%
+    overflow: hidden
+    padding-left: 3%
+    +transition(all,.5s,linear,0s)
+    opacity: 1
+    h1
+      width: 80%
+      margin-top: 1%
+      left: 5%
+      bottom: 3%
+      color: #ffffff
+      +transition(all,.4s,linear,0s)
+      text-shadow: 3px 3px 3px #000000
+
+.mm#pm-subscribe-button
+  font-size: 2em
+  color: rgba(238, 238, 238, 0.9)
+  text-shadow: 3px 3px 3px #333333
+  position: absolute
+  top: 7%
+  right: 5%
+
+.mm#pm-details-artwork
+  height: 100%
+  max-width: 100%
 
 .mm#pm-podcast-description-card
   justify-content: center
   align-items: flex-start
-  height: 50%
+  height: 68%
   width: 75%
   position: absolute
   bottom: -100%
   left: 8%
   overflow-y: scroll
+  border-radius: 2%
+  padding: 1% 3%
+  box-shadow: 5px 5px 5px #333333
+  +bgGradient(rgba(63,190,143,0.8),rgba(1,135,150,0.8))
   +transition(all,.5s,linear,0s)
   p
-    color: #eeeeee
+    font-size: 1.1em
+    color: #ffffff
+    text-shadow: 3px 3px 2px #333333
 
 .mm#pm-podcast-description-card-toggler
   display: none
   &:checked ~ #pm-podcast-description-card
-    bottom: 7%
+    bottom: 6%
   &:checked + h1
     bottom: 58%
+  &:checked + .pm-details-title-ticker
+    opacity: 0
 
 
 .mm.pm-details-episodes-list-wrapper
