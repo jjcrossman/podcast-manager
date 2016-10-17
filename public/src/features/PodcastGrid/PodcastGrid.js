@@ -6,7 +6,9 @@ function PodcastGrid() {
     template: PodcastGridTmpl
     , restrict: "E"
     , scope: {
-
+      podcasts: "="
+      , populateDetails: "="
+      , detailsPodcastTitle: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 

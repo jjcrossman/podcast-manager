@@ -1,3 +1,5 @@
+import "../../../../node_modules/jquery/dist/jquery.js";
+
 function podcastgridCtrl( $scope ) {
   function init() {
     $scope.activeLi = "";

@@ -33,6 +33,11 @@ $pal-playerg2: #636363
   height: 100%
   margin: 0
 
+.mm#pm-search-icon
+  color: #eeeeee
+  font-size: 1.8em
+  margin-left: 3%
+
 .mm.pm-mobile-dropdown
   left: -128%
 
@@ -57,19 +62,39 @@ $pal-playerg2: #636363
     margin: 0
     color: #eeeeee
 
+#pm-mine, #pm-more, #pm-refresh
+  position: absolute
+  +transition(all, .3s, linear, 0s)
+
 .mm#pm-mine-bar
-  justify-content: space-between
   padding: 0 5%
   i
     color: #eeeeee
     font-size: 2em
   #pm-mine
-    position: absolute
     left: 41.5%
   #pm-more
+    left: 81%
     font-size: 140%
+  #pm-refresh
+    left: 5%
+
+.mm#pm-more-bar
+  padding: 0 5%
+  i
+    color: #eeeeee
+    font-size: 2em
+  #pm-mine
+    left: 4%
+    font-size: 140%
+  #pm-more
+    left: 38.5%
+  #pm-refresh
+    left: 89%
 
 .mm#pm-podcast-grid
+  display: flex
+  flex-wrap: wrap
   height: 70vh
   overflow-y: scroll
   overflow-x: hidden
@@ -77,13 +102,24 @@ $pal-playerg2: #636363
   left: 0%
   +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
 
+.mm.pm-podcast-grid-square
+  height: 30%
+  width: 50%
+  position: relative
+
+.mm.pm-podcast-artwork
+  width: 100%
+  height: 100%
+
 .mm.toggle
+  display: inline
   .fa.fa-info-circle
     color: #eeeeee
     font-size: 2em
     position: absolute
     top: 10%
     right: 11%
+    text-shadow: 3px 3px 5px rgba(51, 51, 51, 0.9)
 
 
 .mm.pm-podcast-grid-row
@@ -97,11 +133,15 @@ $pal-playerg2: #636363
   position: absolute
   bottom: 0%
   display: flex
-  align-items: flex-end
+  align-items: flex-start
   padding-left: 4%
+  padding-right: 4%
   h3
     color: #eeeeee
-    margin-top: 3%
+    margin-top: 6%
+    margin-bottom: 4%
+    font-size: 1.4em
+    text-shadow: 3px 3px 2px #555555
 
 .mm.pm-player-bar
   height: 19vh
@@ -230,9 +270,9 @@ $pal-playerg2: #636363
 
 .mm#detailstoggler
   display: none
-  &:checked + #pm-details-slider
+  &:checked + .mm#pm-details-slider
     right: 0%
-  &:checked ~ #pm-podcast-grid
+  &:checked ~ .mm#pm-podcast-grid
     left: -100%
 
 .mm.pm-episodes-li

@@ -6,7 +6,7 @@ function MineMoreBar() {
     template: MineMoreBarTmpl
     , restrict: "E"
     , scope: {
-
+        whichView: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 

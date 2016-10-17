@@ -1,13 +1,13 @@
 <div class="row mm pm-button-bar">
 
-  <div class="col-xs-12 mm pm-h100" id="pm-mine-bar">
+  <div class="col-xs-12 mm pm-h100" ng-attr-id="{{ whichView }}">
 
-    <i class="fa fa-refresh" aria-hidden="true"></i>
-    <h2 class="mm" id="pm-mine">
+    <i class="fa fa-refresh" id="pm-refresh" aria-hidden="true"></i>
+    <h2 ui-sref="mine" class="mm" id="pm-mine">
       MINE
     </h2>
 
-    <h2 class="mm" id="pm-more">
+    <h2 ui-sref="more" class="mm" id="pm-more">
       MORE
     </h2>
   </div>

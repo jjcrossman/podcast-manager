@@ -1,10 +1,22 @@
 <div class="container-fluid">
 
-  <header-bar></header-bar>
+  <header-bar
+    search-term="searchTerm"
+    which-view="whichView"
+    search-itunes="searchItunes"
 
-  <mine-more-bar></mine-more-bar>
+  ></header-bar>
 
-  <podcast-grid></podcast-grid>
+  <mine-more-bar
+    which-view="whichView"
+  ></mine-more-bar>
+
+  <podcast-grid
+    podcasts="podcasts"
+    populate-details="populateDetails"
+    details-podcast-title="detailsPodcastTitle"    
+
+  ></podcast-grid>
 
   <player-bar></player-bar>
 

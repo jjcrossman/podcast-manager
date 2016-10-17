@@ -1,6 +1,7 @@
-// AngularJS, UI-Router, Angular-Material
+// AngularJS, UI-Router, jQuery
 import angular from "angular";
 import uiRouter from "angular-ui-router";
+import "../../node_modules/jquery/dist/jquery.js"
 // import ngAria from "angular-aria";
 // import ngAnimate from "angular-animate";
 // import ngMaterial from "angular-material";
@@ -21,8 +22,10 @@ import minemoreTmpl from "./views/templates/minemore-tmpl.html"
 // Controllers
 import loginCtrl from "./views/controllers/loginCtrl.js";
 import mineCtrl from "./views/controllers/mineCtrl.js";
+import moreCtrl from "./views/controllers/moreCtrl.js";
 
 // Factories
+import moreFcty from "./views/factories/moreFcty.js";
 
 // Directives
 import HeaderBar from "./features/HeaderBar/HeaderBar.js";
@@ -39,7 +42,9 @@ angular.module( 'PodcastManager', [ uiRouter ] )
 // Controllers
 .controller( "loginCtrl", loginCtrl )
 .controller( "mineCtrl", mineCtrl )
+.controller( "moreCtrl", moreCtrl )
 // Factories
+.factory( "moreFcty", moreFcty )
 
 // Directives
 .directive( "headerBar", HeaderBar )
@@ -62,6 +67,11 @@ angular.module( 'PodcastManager', [ uiRouter ] )
       url: "/mine"
       , template: minemoreTmpl
       , controller: "mineCtrl"
+    } )
+    .state( "more", {
+      url: "/more"
+      , template: minemoreTmpl
+      , controller: "moreCtrl"
     } );
 
 } );

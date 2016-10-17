@@ -8,12 +8,15 @@
 
     <div class="col-xs-6 col-xs-offset-1 mm pm-h100">
 
-        <form class="form-inline">
+        <form ng-submit="searchItunes( searchTerm )" class="form-inline">
             <div class="form-group mm pm-header-search-bar">
                 <label class="sr-only" for="searching">Search bar</label>
-                <input type="text" class="form-control" placeholder="Search">
+                <input ng-model="searchTerm" type="text" class="form-control" placeholder="Search">
             </div>
         </form>
+
+        <i ng-click="searchItunes( searchTerm )" class="mm fa fa-search" id="pm-search-icon"></i>
+
 
 
 

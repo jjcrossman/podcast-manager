@@ -6,7 +6,9 @@ function HeaderBar() {
     template: HeaderBarTmpl
     , restrict: "E"
     , scope: {
-
+        searchTerm: "="
+        , whichView: "="
+        , searchItunes: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 
