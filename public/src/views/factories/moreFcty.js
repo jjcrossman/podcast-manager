@@ -29,6 +29,7 @@ function moreFcty ( $http, $q ) {
             , podcastDescriptions: []
             , podcastEpisodeTitles: []
             , podcastEpisodeDescriptions: []
+            , podcastEpisodeUrls: []
           }
 
           return returnObj;
@@ -49,11 +50,11 @@ function moreFcty ( $http, $q ) {
         podcastDescription: ""
         , episodeTitles: []
         , episodeDescriptions: []
+        , episodeUrls: []
         , feed: feed
       };
       channel.each( function() {
         var el = $(this);
-        console.log( "LAWL" );
 
         let description = el.find("description:first").text();
 
@@ -63,13 +64,14 @@ function moreFcty ( $http, $q ) {
       if ( item ) {
         item.each( function() {
           var el = $(this);
-          console.log( "LOL" );
 
           let episodeTitle = el.find("title").text();
           let episodeDescription = el.find("description").text();
+          let episodeUrl = el.find("enclosure").attr("url");
 
           returnObj.episodeTitles.push( episodeTitle );
           returnObj.episodeDescriptions.push( episodeDescription) ;
+          returnObj.episodeUrls.push( episodeUrl );
 
         } );
       } else {
@@ -78,9 +80,11 @@ function moreFcty ( $http, $q ) {
 
           let episodeTitle = el.find("title").text();
           let episodeDescription = el.find("description").text();
+          let episodeUrl = el.find("enclosure").attr("url");
 
           returnObj.episodeTitles.push( episodeTitle );
           returnObj.episodeDescriptions.push( episodeDescription );
+          returnObj.episodeUrls.push( episodeUrl );
 
         } );
       }

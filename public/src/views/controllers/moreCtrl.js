@@ -48,7 +48,8 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         if ( $scope.podcasts[i].feed === data.feed ) {
           $scope.podcasts[i].description = data.podcastDescription;
           $scope.podcasts[i].episodeTitles = data.episodeTitles;
-          $scope.podcasts[i].episodeDescriptions= data.episodeDescriptions;
+          $scope.podcasts[i].episodeDescriptions = data.episodeDescriptions;
+          $scope.podcasts[i].episodeUrls = data.episodeUrls;
         }
       }
     } )
@@ -67,10 +68,13 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       $scope.details.push( {
         title: podcast.episodeTitles[i]
         , description: podcast.episodeDescriptions[i]
+        , url: podcast.episodeUrls[i]
       } );
     }
-    // Make episodes repeatable.
-    // Search the podcast's XML RSS feed for description, episode titles and descriptions, and durations.
+  };
+
+  $scope.subscribeToPodcast = podcast => {
+
   };
 
   init();
