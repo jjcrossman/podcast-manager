@@ -99,11 +99,12 @@ $pal-playerg2: #636363
   overflow-y: scroll
   overflow-x: hidden
   position: relative
+  align-content: flex-start
   left: 0%
   +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
 
 .mm.pm-podcast-grid-square
-  height: 30%
+  height: 32%
   width: 50%
   position: relative
 
@@ -233,13 +234,18 @@ $pal-playerg2: #636363
     color: rgba(238, 238, 238, 0.9)
     text-shadow: 3px 3px 3px #333333
 
-.mm.pm-subscribed-alert
+.mm.pm-subscribed-alert, .mm.pm-unsubscribed-alert
   position: absolute
   color: white
   font-size: 2em
-  right: 14%
+  right: 16%
   text-shadow: 3px 3px 3px black
-  top: 4%
+  top: 6%
+  +transition(all,.4s,linear,0s)
+  opacity: 0
+
+.mm#pm-subscribed
+  opacity: 1
 
 .mm.pm-details-title-ticker
     min-height: 23%
@@ -266,12 +272,18 @@ $pal-playerg2: #636363
       text-shadow: 3px 3px 3px #000000
 
 .mm#pm-subscribe-button
-  font-size: 2em
+  font-size: 3em
   color: rgba(238, 238, 238, 0.9)
   text-shadow: 3px 3px 3px #333333
   position: absolute
   top: 7%
   right: 5%
+  +transition(all,.1s,linear,0s)
+
+.mm.pm-rotate
+  -ms-transform: rotate(45deg)
+  -webkit-transform: rotate(45deg)
+  transform: rotate(45deg)
 
 .mm#pm-details-artwork
   height: 100%

@@ -1,17 +1,32 @@
 @import _mixins
 
-@media screen and (max-width: 374px)
-  @import ./partials/_login-320px
+// width: 0 - 374, height: undefined
+@media screen and (min-width: 0px) and (max-width: 374px)
+  @import ./partials/_login-0px
   @import ./partials/_minemore-425px
+
+// width: 375 - 424, height: undefined
 @media screen and (min-width: 375px) and (max-width: 424px)
   @import ./partials/_login-375px
   @import ./partials/_minemore-425px
-@media screen and (min-width: 425px) and (max-width: 767px) and (max-height: 805px)
-  @import ./partials/_login-425px-689px
+
+// width: 425 - 767, height: 601 - 663
+@media screen and (min-width: 425px) and (max-width: 767px) and (min-height: 0px) and (max-height: 600px)
+  @import ./partials/_login-425px-0px
   @import ./partials/_minemore-425px
+
+@media screen and (min-width: 425px) and (max-width: 767px) and (min-height: 601px) and (max-height: 663px)
+  @import ./partials/_login-425px-601px
+  @import ./partials/_minemore-425px
+
+@media screen and (min-width: 425px) and (max-width: 767px) and (min-height: 664px) and (max-height: 804px)
+  @import ./partials/_login-425px-664px
+  @import ./partials/_minemore-425px
+
 @media screen and (min-width: 425px) and (max-width: 767px) and (min-height: 805px)
-  @import ./partials/_login-425px
+  @import ./partials/_login-425px-805px
   @import ./partials/_minemore-425px
+
 @media screen and (min-width: 768px)
   @import ./partials/_login-768px
   @import ./partials/_minemore-425px

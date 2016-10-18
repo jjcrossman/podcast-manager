@@ -21,7 +21,7 @@ const Podcast = new mongoose.Schema( {
     , trim: true
     , default: "../images/noArtwork.png"
   }
-  , rss: {
+  , feed: {
     type: String
     , required: true
   }

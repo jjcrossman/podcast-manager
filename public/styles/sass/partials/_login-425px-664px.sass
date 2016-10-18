@@ -1,7 +1,7 @@
 // Color Pallete
 $pal-green: #3fbe8f
 $pal-blue: #018897
-$pal-bggrey: #535353
+$pal-bggrey: #444444
 $pal-darkgrey: #494949
 $pal-mediumgrey: #646464
 $pal-lightgrey: #969696
@@ -18,7 +18,7 @@ body
   background-color: $pal-bggrey
 
   .pm-header-bar
-    height: 5vh
+    height: 6vh
     width: 100%
     // border: 2px solid yellow
     overflow: hidden
@@ -51,7 +51,7 @@ body
     justify-content: center
 
   .pm-button-bar
-    height: 6vh
+    height: 8vh
     width: 100%
     // border: 2px solid yellow
     +bgGradient($pal-green,$pal-blue)
@@ -60,7 +60,7 @@ body
       color: #eeeeee
 
   .pm-gap
-    height: 29vh
+    height: 35vh
     background-color: black
     background-image: url("../../src/features/images/jumbotron.jpg")
     background-position-y: 5%
@@ -77,7 +77,7 @@ body
     align-items: center
     h3
       color: #eeeeee
-      font-size: 24px
+      font-size: 20px
     h4
       color: #eeeeee
       font-size: 18px
@@ -85,9 +85,9 @@ body
   .pm-login-circle
     background-color: rgba(63,190,143,0.4)
     position: absolute
-    top: -32%
-    width: 9.75em
-    height: 9.75em
+    top: -33%
+    width: 7.75em
+    height: 7.75em
     border-radius: 50%
     border: 14px solid rgba(0,0,0,0.6)
     -moz-background-clip: padding
@@ -95,40 +95,34 @@ body
     background-clip: padding-box
     .fa
       position: absolute
-      top: 7%
-      left: 19.5%
-      font-size: 6em
+      top: 12%
+      left: 23.5%
+      font-size: 4em
       color: #ffffff
 
   .pm-login-icons
     background-color: $pal-darkgrey
-    height: 20vh
-    .fa
-      font-size: 8em
+    height: 14vh
+
+  #pm-login-twitter-icon, #pm-login-facebook-icon, #pm-login-google-icon
+    position: absolute
+    top: -50px
+    font-size: 7em
+    &:hover
+      cursor: pointer
 
   #pm-login-twitter-icon
     color: $pal-twitter
-    position: absolute
-    top: -57px
-    &:hover
-      cursor: pointer
 
   #pm-login-facebook-icon
+    text-shadow: 0px 0px 40px rgba(225,225,225,0.1)
     color: $pal-facebook
-    position: absolute
-    top: -57px
-    &:hover
-      cursor: pointer
 
   #pm-login-google-icon
     color: $pal-google
-    position: absolute
-    top: -57px
-    &:hover
-      cursor: pointer
 
   .pm-try-it-bar
-    height: 16vh
+    height: 13vh
     +bgGradient($pal-green,$pal-blue)
     h2
       color: #eeeeee

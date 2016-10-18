@@ -12,7 +12,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   $scope.searchItunes = ( searchTerm ) => {
     moreFcty.searchItunes( searchTerm )
       .then( data => {
-        console.log( "Promise fulfilled in moreCtrl" );
         console.log( data );
         if ( data ) {
           for ( let i = 0; i < data.podcastTitles.length; i++ ) {
@@ -26,7 +25,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
               $scope.podcasts[i].title = $scope.podcasts[i].title.slice(0, 50) + "...";
             }
           }
-          console.log( $scope.podcasts );
           for ( let i = 0; i < data.podcastFeeds.length; i++ ) {
             $scope.retrieveRSSFeedInformation( data.podcastFeeds[i] );
           }
@@ -43,7 +41,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   $scope.retrieveRSSFeedInformation = ( feed ) => {
     moreFcty.retrieveRSSFeedInformation( feed )
     .then( data => {
-      console.log( "RSS feed data in moreCtrl", data );
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].feed === data.feed ) {
           $scope.podcasts[i].description = data.podcastDescription;
@@ -73,8 +70,17 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     }
   };
 
-  $scope.subscribeToPodcast = podcast => {
-
+  $scope.subscribeToPodcast = () => {
+    console.log( "subscribeToPodcast fired" );
+    $("p.pm-subscribed-alert").attr("id", "pm-subscribed");
+    $timeout( function() {
+      $("p.pm-subscribed-alert").attr("id", "");
+    }, 1500);
+    for ( let i = 0; i < $scope.podcasts.length; i++ ) {
+      if ( $scope.podcasts[i].title === $scope.detailsPodcastTitle && $scope.podcasts[i].artwork === $scope.detailsPodcastArtwork && $scope.podcasts[i].description === $scope.detailsPodcastDescription ) {
+        moreFcty.sendPodcastToMongoDb( $scope.podcasts[i] );
+      }
+    }
   };
 
   init();

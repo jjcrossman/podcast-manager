@@ -21,13 +21,14 @@
 
         <img ng-src="{{ detailsPodcastArtwork }}" class="mm" id="pm-details-artwork"></img>
 
-        <p class="mm pm-subscribed-alert">Subscribed!</p>
+        <p id="" class="mm pm-subscribed-alert">Subscribed!</p>
+        <p id="" class="mm pm-unsubscribed-alert">Unsubscribed</p>
 
           <label for="pm-podcast-description-card-toggler" class="mm toggle">
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
+        <i class="mm fa fa-info-circle" aria-hidden="true"></i>
       </label>
 
-        <i class="fa fa-plus mm" id="pm-subscribe-button" ng-click="subscribeToPodcast( podcast )"></i>
+        <i class="fa fa-plus mm" id="pm-subscribe-button" ng-click="subscribeToPodcast()"></i>
         <div class="mm" id="pm-podcast-description-card">
 
           <p>

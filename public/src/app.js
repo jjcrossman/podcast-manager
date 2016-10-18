@@ -26,6 +26,7 @@ import moreCtrl from "./views/controllers/moreCtrl.js";
 
 // Factories
 import moreFcty from "./views/factories/moreFcty.js";
+import mineFcty from "./views/factories/mineFcty.js";
 
 // Directives
 import HeaderBar from "./features/HeaderBar/HeaderBar.js";
@@ -45,6 +46,7 @@ angular.module( 'PodcastManager', [ uiRouter ] )
 .controller( "moreCtrl", moreCtrl )
 // Factories
 .factory( "moreFcty", moreFcty )
+.factory( "mineFcty", mineFcty )
 
 // Directives
 .directive( "headerBar", HeaderBar )

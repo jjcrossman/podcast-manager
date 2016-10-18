@@ -12,6 +12,7 @@ function PodcastGrid() {
       , detailsPodcastArtwork: "="
       , detailsPodcastDescription: "="
       , details: "="
+      , subscribeToPodcast: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 

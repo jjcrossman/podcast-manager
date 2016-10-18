@@ -1,4 +1,4 @@
-function moreFcty ( $http, $q ) {
+function moreFcty( $http, $q ) {
 
   let itunesSearchUrl = "https://itunes.apple.com/search?term=";
   let itunesSearchQuery = "";
@@ -88,12 +88,34 @@ function moreFcty ( $http, $q ) {
 
         } );
       }
-      console.log( returnObj );
       return returnObj;
     } ).catch( error => {
       console.log( "error in moreFcty", error );
     } );
   }
+
+  , sendPodcastToMongoDb( podcast ) {
+    console.log( "send to mongoDB ran in moreFcty" );
+    //POST every episode to Episode collection
+    //GET each episode's ObjectId
+    //.push each ObjectId to preparedObj.episodes array
+
+    //OR preparedObj.episodes is an array of objects, the objects are episodes with title, description and url.
+      let preparedObj = {
+        title: podcast.title
+        , description: podcast.description
+        , artwork: podcast.artwork
+        , feed: podcast.feed
+      }
+      $http.post( "/api/podcast", preparedObj ).then( res => {
+        console.log( "/api/podcast POST says: ", res );
+      } )
+      .catch( err => {
+        console.log( "Error attempting to POST to /api/podcast", err );
+      } );
+  }
+
+
   }
 
 }
