@@ -36,6 +36,7 @@ function moreFcty( $http, $q ) {
         } } )
           .catch( error => {
             console.log( "Error in moreFcty", error );
+            return error;
           } );
     }
 
@@ -94,6 +95,17 @@ function moreFcty( $http, $q ) {
     } );
   }
 
+  , getPodcastsFromDb() {
+    console.log( "MoreFcty fired getPodcastsFromDb" );
+    return $http.get( "/api/podcast" ).then( podcasts => {
+      return podcasts.data;
+    } )
+    .catch( err => {
+      console.log( "moreFcty error", err );
+      return err;
+    } );
+  }
+
   , sendPodcastToMongoDb( podcast ) {
     console.log( "send to mongoDB ran in moreFcty" );
     //POST every episode to Episode collection
@@ -109,12 +121,24 @@ function moreFcty( $http, $q ) {
       }
       $http.post( "/api/podcast", preparedObj ).then( res => {
         console.log( "/api/podcast POST says: ", res );
+        return res;
       } )
       .catch( err => {
         console.log( "Error attempting to POST to /api/podcast", err );
+        return err;
       } );
   }
-
+  , removePodcast( podcast ) {
+    console.log( `removePodcast sent ${ podcast._id }` );
+    return $http.delete( `/api/podcast/${ podcast._id }` ).then( res => {
+      console.log( res );
+      return res;
+    } )
+    .catch( err => {
+      console.log( err );
+      return err;
+    } );
+  }
 
   }
 

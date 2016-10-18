@@ -5,11 +5,12 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.whichView = "pm-more-bar";
     $timeout( function(){$scope.whichView = "pm-mine-bar";}, 1);
     $scope.podcasts = [];
+    $scope.details = [];
     mineFcty.getPodcastsFromDb()
       .then( podcasts => {
         console.log( "mineCtrl caught:", podcasts );
-        for (var i = 0; i < podcasts.data.length; i++) {
-          $scope.podcasts.push( podcasts.data[i] );
+        for (var i = 0; i < podcasts.length; i++) {
+          $scope.podcasts.push( podcasts[i] );
         }
       } )
       .catch( error => {
@@ -26,8 +27,8 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       .then( podcasts => {
         console.log( "mineCtrl caught:", podcasts );
           $scope.podcasts = [];
-        for (var i = 0; i < podcasts.data.length; i++) {
-          $scope.podcasts.push( podcasts.data[i] );
+        for (var i = 0; i < podcasts.length; i++) {
+          $scope.podcasts.push( podcasts[i] );
         }
       } )
       .catch( error => {
@@ -35,18 +36,25 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       } );
   }
 
-  $scope.retrieveRSSFeedInformation = ( feed ) => {
-      moreFcty.retrieveRSSFeedInformation( feed )
+  $scope.retrieveRSSFeedInformation = ( podcast ) => {
+      mineFcty.retrieveRSSFeedInformation( podcast.feed )
       .then( data => {
-        console.log( "RSS feed data in moreCtrl", data );
+        console.log( "RSS feed data in mineCtrl", data );
         for ( let i = 0; i < $scope.podcasts.length; i++ ) {
           if ( $scope.podcasts[i].feed === data.feed ) {
-            $scope.podcasts[i].description = data.podcastDescription;
             $scope.podcasts[i].episodeTitles = data.episodeTitles;
             $scope.podcasts[i].episodeDescriptions = data.episodeDescriptions;
             $scope.podcasts[i].episodeUrls = data.episodeUrls;
           }
         }
+        for ( let i = 0; i < podcast.episodeTitles.length; i++ ) {
+          $scope.details.push( {
+            title: podcast.episodeTitles[i]
+            , description: podcast.episodeDescriptions[i]
+            , url: podcast.episodeUrls[i]
+          } );
+        }
+        console.log( $scope.details );
       } )
       .catch( error => {
         console.log( "Error in moreCtrl", error );
@@ -61,6 +69,14 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.detailsPodcastArtwork = podcast.artwork;
     $scope.detailsPodcastDescription = podcast.description;
     // Reed RSS Feed and populate episode list()
+    $scope.retrieveRSSFeedInformation( podcast );
+  };
+
+  $scope.flushDetails = () => {
+    $timeout( function() {
+        $scope.details = [];
+        console.log( "details flushed", $scope.details );
+      }, 500);
   };
 
   $scope.setSubscribeStatus = () => {
@@ -82,7 +98,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           $scope.saveForPossibleResubscribe = $scope.podcasts[i];
           mineFcty.removePodcast( $scope.podcasts[i] )
           .then( res => {
-            console.log( res );
+            console.log( "mineCtrl line 94", res );
             $scope.getPodcastsFromDb();
           } )
           .catch( err => {
@@ -107,15 +123,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     }
   };
 
-
-
-  // for ( let i = 0; i < podcast.episodeTitles.length; i++ ) {
-  //   $scope.details.push( {
-  //     title: podcast.episodeTitles[i]
-  //     , description: podcast.episodeDescriptions[i]
-  //     , url: podcast.episodeUrls[i]
-  //   } );
-  // }
 
 
 

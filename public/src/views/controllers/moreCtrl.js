@@ -7,9 +7,22 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     $timeout( function(){$scope.whichView = "pm-more-bar";}, 1);
     $scope.podcasts = [];
     $scope.details = [];
+    $scope.alreadySubscribed = [];
+    moreFcty.getPodcastsFromDb()
+      .then( podcasts => {
+        console.log( "mineCtrl caught:", podcasts );
+        for (var i = 0; i < podcasts.length; i++) {
+          $scope.alreadySubscribed.push( podcasts[i] );
+        }
+      } )
+      .catch( error => {
+        console.log( "mineCtrl error:", error );
+      } );
   }
 
   $scope.searchItunes = ( searchTerm ) => {
+    $scope.podcasts = [];
+    $scope.details = [];
     moreFcty.searchItunes( searchTerm )
       .then( data => {
         console.log( data );
@@ -56,8 +69,20 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   };
 
   $scope.populateDetails = ( podcast ) => {
-    console.log( "populateDetails fired" );
-    console.log( podcast );
+    console.log( "populateDetails fired", podcast );
+    // check database for existing podcast
+    // if it's there, rotate +
+    for ( let j = 0; j < $scope.alreadySubscribed.length; j++ ) {
+      if ( $scope.alreadySubscribed[j].feed === podcast.feed ) {
+        console.log( `Already subscribed to: ${ podcast.title }` );
+        $("#pm-subscribe-button").attr("class", "fa fa-plus mm pm-rotate");
+        break;
+      }
+      if ( j === $scope.alreadySubscribed.length - 1 ) {
+        $("#pm-subscribe-button").attr("class", "fa fa-plus mm");
+        console.log( `Not already subscribed to: ${ podcast.title }` );
+      }
+    }
     $scope.detailsPodcastTitle = podcast.title;
     $scope.detailsPodcastArtwork = podcast.artwork;
     $scope.detailsPodcastDescription = podcast.description;
@@ -70,15 +95,51 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     }
   };
 
-  $scope.subscribeToPodcast = () => {
-    console.log( "subscribeToPodcast fired" );
-    $("p.pm-subscribed-alert").attr("id", "pm-subscribed");
+  $scope.flushDetails = () => {
     $timeout( function() {
-      $("p.pm-subscribed-alert").attr("id", "");
-    }, 1500);
-    for ( let i = 0; i < $scope.podcasts.length; i++ ) {
-      if ( $scope.podcasts[i].title === $scope.detailsPodcastTitle && $scope.podcasts[i].artwork === $scope.detailsPodcastArtwork && $scope.podcasts[i].description === $scope.detailsPodcastDescription ) {
-        moreFcty.sendPodcastToMongoDb( $scope.podcasts[i] );
+        $scope.details = [];
+        console.log( "details flushed", $scope.details );
+      }, 500);
+  };
+
+  $scope.subscribeToPodcast = () => {
+
+    if ( $("#pm-subscribe-button").attr("class") === "fa fa-plus mm pm-rotate" ) {
+      $("#pm-subscribe-button").attr("class", "fa fa-plus mm");
+      $("p.pm-unsubscribed-alert").attr("id", "pm-subscribed");
+      $timeout( function() {
+        $("p.pm-unsubscribed-alert").attr("id", "");
+      }, 1500);
+      moreFcty.getPodcastsFromDb()
+      .then( podcasts => {
+        console.log( "moreCtrl line 115",podcasts );
+        for ( let i = 0; i < podcasts.length; i++ ) {
+          if ( podcasts[i].title === $scope.detailsPodcastTitle && podcasts[i].description === $scope.detailsPodcastDescription && podcasts[i].artwork === $scope.detailsPodcastArtwork ) {
+            $scope.saveForPossibleResubscribe = podcasts[i];
+            moreFcty.removePodcast( podcasts[i] )
+            .then( res => {
+              console.log( "moreCtrl line 121", res );
+            } )
+            .catch( err => {
+              console.log( err );
+            } );
+          }
+        }
+      } )
+      .catch( err => {
+        console.log( err );
+      } );
+    } else {
+      console.log( "subscribeToPodcast fired" );
+      $("p.pm-subscribed-alert").attr("id", "pm-subscribed");
+      $("#pm-subscribe-button").attr("class", "fa fa-plus mm pm-rotate");
+      $timeout( function() {
+        $("p.pm-subscribed-alert").attr("id", "");
+      }, 1500);
+      for ( let i = 0; i < $scope.podcasts.length; i++ ) {
+        if ( $scope.podcasts[i].title === $scope.detailsPodcastTitle && $scope.podcasts[i].artwork === $scope.detailsPodcastArtwork && $scope.podcasts[i].description === $scope.detailsPodcastDescription ) {
+          moreFcty.sendPodcastToMongoDb( $scope.podcasts[i] );
+        }
       }
     }
   };

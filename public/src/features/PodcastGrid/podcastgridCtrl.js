@@ -9,7 +9,6 @@ function podcastgridCtrl( $scope ) {
     console.log( "toggleActiveLi fired" );
     if ( $scope.activeLi ) {
       $scope.activeLi = "";
-      console.log( "pass" );
     } else {
       $scope.activeLi = "pm-li-active";
     }
@@ -18,7 +17,6 @@ function podcastgridCtrl( $scope ) {
   $scope.closeDescriptionAndLi = () => {
     console.log( "closeDescriptionAndLi fired" );
     if ( $scope.activeLi ) {
-      console.log( "passed" );
       $scope.activeLi = "";
     }
   };

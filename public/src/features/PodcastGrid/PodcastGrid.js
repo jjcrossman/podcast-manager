@@ -13,6 +13,7 @@ function PodcastGrid() {
       , detailsPodcastDescription: "="
       , details: "="
       , subscribeToPodcast: "="
+      , flushDetails: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 
