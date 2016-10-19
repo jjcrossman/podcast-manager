@@ -59,9 +59,9 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
         }
         for ( let i = 0; i < podcast.episodeTitles.length; i++ ) {
           $scope.details.push( {
-            title: podcast.episodeTitles[i]
-            , description: podcast.episodeDescriptions[i]
-            , url: podcast.episodeUrls[i]
+            title: data.episodeTitles
+            , description: data.episodeDescriptions
+            , url: data.episodeUrls
             , sourceFeed: data.feed
           } );
         }
