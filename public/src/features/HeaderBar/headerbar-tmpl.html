@@ -2,7 +2,7 @@
     <div class="col-xs-3 mm pm-h100">
 
 
-        <img src="../../features/images/pm-logo.png" class="mm" id="pm-logo">
+        <img ui-sref="mine" src="../../features/images/pm-logo.png" class="mm" id="pm-logo">
 
     </div>
 
@@ -24,8 +24,14 @@
 
     <div class="col-xs-2 mm pm-h100">
 
-        <i class="fa fa-user mm pm-noavatar-icon" aria-hidden="true"></i>
 
+        <img ng-click="toggleDropDown()" class="mm pm-user-avatar" ng-src="{{ userAvatar }}" />
+        <i class="fa fa-user mm pm-noavatar-icon" aria-hidden="true"></i>
+    <div class="mm pm-user-avatar-dropdown">
+      <p ui-sref="login">
+        LOGOUT
+      </p>
+    </div>
     </div>
 
 </div>

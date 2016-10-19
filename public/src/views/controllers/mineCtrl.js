@@ -1,6 +1,19 @@
 function mineCtrl( $scope, $timeout, mineFcty ) {
 
   function init() {
+    $scope.userAvatar = "";
+    mineFcty.getFacebookUserData()
+      .then( userObj => {
+        console.log( "mineCtrl received:", userObj );
+        $scope.userAvatar = userObj.avatar;
+        if ( !userObj.avatar ) {
+          $(".pm-noavatar-icon").css("display", "inline-block");
+        }
+      } )
+      .catch( err => {
+        console.log( "Error getting user's data:", err );
+      } );
+    $scope.trigger = 1;
     $scope.searchTerm = "";
     $scope.whichView = "pm-more-bar";
     $timeout( function(){$scope.whichView = "pm-mine-bar";}, 1);
@@ -59,8 +72,8 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           , sourceFeed: data.feed
         } );
       }
-      $scope.$apply( function() {
-        $scope.details; } );
+      $scope.$apply();
+
     } )
     .catch( error => {
       console.log( "Error in moreCtrl", error );
@@ -125,7 +138,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       $(".mm.pm-episode-card").css( "opacity", "0" );
       $timeout( function() {
         $(".mm.pm-episode-card").attr( "id", "" );
-      }, 500 );
+      }, 300 );
       return;
     } else {
     $(".row.mm.pm-details-episodes-list").css( "overflow", "hidden" );
@@ -134,13 +147,26 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       $(".mm.pm-episode-card").css( "opacity", "1" );
     }, 50 );
     }
-      $scope.$apply( function() {
-        $scope.cardTitle = detail.title;
-        $scope.cardDescription = detail.description;
-      } );
-
+    $scope.cardTitle = detail.title;
+    $scope.cardDescription = detail.description;
+    //
     console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
 
+  };
+
+  $scope.toggleDropDown = () => {
+
+    if ( $(".pm-user-avatar-dropdown").attr("id") === "pm-dropdown-show" ) {
+        $(".pm-user-avatar-dropdown").attr("id", "");
+      $timeout( function() {
+        $(".pm-user-avatar-dropdown").css("display", "none");
+      }, 300);
+    } else {
+      $(".pm-user-avatar-dropdown").css("display", "block");
+      $timeout( function() {
+        $(".pm-user-avatar-dropdown").attr("id", "pm-dropdown-show");
+      }, 50);
+    }
   };
 
 

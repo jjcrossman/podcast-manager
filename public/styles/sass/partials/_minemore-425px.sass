@@ -27,6 +27,7 @@ body
   form
     width: 100%
   .pm-noavatar-icon
+    display: none
     top: 0%
     left: 0%
     font-size: 3em
@@ -41,8 +42,35 @@ body
   font-size: 1.8em
   margin-left: 3%
 
-.mm.pm-mobile-dropdown
-  left: -128%
+.mm.pm-user-avatar
+  height: 80%
+  width: 50%
+  border-radius: 50%
+  box-shadow: 0px 0px 60px rgba(255,255,255,0.9)
+  z-index: 2
+
+.mm.pm-user-avatar-dropdown
+  height: 11vh
+  width: 23vw
+  opacity: 0
+  position: fixed
+  display: none
+  background-color: #434343
+  top: 0%
+  right: 0%
+  z-index: 1
+  border-radius: 5%
+  +transition(all, .3s, linear, 0s)
+  p
+    color: #eee
+    font-size: 1em
+    position: absolute
+    bottom: 17%
+    left: 23%
+    margin: 0
+
+.mm#pm-dropdown-show
+  opacity: 1
 
 .mm#pm-logo
   width: 90%
@@ -309,7 +337,7 @@ body
   +bgGradient(rgba(63,190,143,0.8),rgba(1,135,150,0.8))
   +transition(all,.5s,cubic-bezier(1, 0.54, 0, 0.51),0s)
   p
-    font-size: 1.1em
+    font-size: 1.2em
     color: #ffffff
     text-shadow: 3px 3px 2px #333333
 
@@ -384,7 +412,7 @@ body
   background: -webkit-linear-gradient(black,#494949,black)
   background: -o-linear-gradient(black,#494949,black)
   background: -moz-linear-gradient(black,#494949,black)
-  background: linear-gradient(black,#494949,black)
+  background: linear-gradient(black,#494949,black,#494949,black)
   display: none
   opacity: 0
   height: 42.1vh
@@ -392,7 +420,7 @@ body
   position: fixed
   top: 39vh
   z-index: 1
-  +transition(all,.5s,linear,0s)
+  +transition(all,.3s,linear,0s)
 
 .mm.pm-episode-card-title-wrapper
   height: 20%
@@ -406,7 +434,7 @@ body
   display: flex
   align-items: center
   justify-content: flex-start
-  padding-left: 3%
+  padding: 5% 3% 0% 3%
   h3
     margin: 0
     font-size: 1.6em
@@ -433,11 +461,13 @@ body
   // background-color: blue
   height: 70%
   display: flex
-  padding: 5%
+  padding: 3% 5% 5% 5%
+  margin-top: 3%
   overflow: scroll
   p
     color: #eeeeee
     font-size: 1.1em
+    text-shadow: 2px 2px 5px #222222
 
 .mm#pm-show-episode-card
   display: block

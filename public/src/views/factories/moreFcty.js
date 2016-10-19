@@ -46,7 +46,6 @@ function moreFcty( $http, $q ) {
       let channel = $(data).find("channel");
       let item = $(data).find("item");
       let entry = $(data).find("entry");
-      console.log( feed );
       let returnObj = {
         podcastDescription: ""
         , episodeTitles: []
@@ -54,14 +53,10 @@ function moreFcty( $http, $q ) {
         , episodeUrls: []
         , feed: feed
       };
-      channel.each( function() {
-        var el = $(this);
 
-        let description = el.find("description:first").text();
+      let description = channel.find("description:first").text();
+      returnObj.podcastDescription = description;
 
-        returnObj.podcastDescription = description;
-
-      } );
       if ( item ) {
         item.each( function() {
           var el = $(this);

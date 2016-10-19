@@ -44,7 +44,6 @@ function mineFcty( $http ) {
           } );
         }
         , retrieveRSSFeedInformation( feed ) {
-          console.log( "MINE FCTY RSS SCANNER was passed:", feed );
           return $.get( feed ).then( function( data ) {
             let item = $(data).find("item");
             let entry = $(data).find("entry");
@@ -86,6 +85,21 @@ function mineFcty( $http ) {
             console.log( "error in moreFcty", error );
             return error;
           } );
+        }
+        , getFacebookUserData() {
+          return $http.get( "/api/auth" )
+            .then( userObj => {
+              let returnObj = {
+                firstName: userObj.data.name.givenName
+                , lastName: userObj.data.name.familyName
+                , avatar: userObj.data.photos[0].value
+                , fbObj: userObj
+              }
+              return returnObj;
+            } )
+            .catch( err => {
+              console.log( "mineFcty error:", err );
+            } );
         }
   };
 

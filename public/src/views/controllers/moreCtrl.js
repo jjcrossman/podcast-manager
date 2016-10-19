@@ -145,6 +145,29 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     }
   };
 
+  $scope.toggleEpisodeCard = ( detail ) => {
+    console.log( "toggleEpisodeCard was fired", detail );
+    if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
+      $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
+      $(".mm.pm-episode-card").css( "opacity", "0" );
+      $timeout( function() {
+        $(".mm.pm-episode-card").attr( "id", "" );
+      }, 300 );
+      return;
+    } else {
+    $(".row.mm.pm-details-episodes-list").css( "overflow", "hidden" );
+    $(".mm.pm-episode-card").attr( "id", "pm-show-episode-card" );
+    $timeout( function() {
+      $(".mm.pm-episode-card").css( "opacity", "1" );
+    }, 50 );
+    }
+    $scope.cardTitle = detail.title;
+    $scope.cardDescription = detail.description;
+    //
+    console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
+
+  };
+
   init();
 
 }
