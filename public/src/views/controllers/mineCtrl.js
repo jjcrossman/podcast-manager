@@ -59,7 +59,8 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           , sourceFeed: data.feed
         } );
       }
-      $scope.$apply( $scope.details );
+      $scope.$apply( function() {
+        $scope.details; } );
     } )
     .catch( error => {
       console.log( "Error in moreCtrl", error );
@@ -125,6 +126,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       $timeout( function() {
         $(".mm.pm-episode-card").attr( "id", "" );
       }, 500 );
+      return;
     } else {
     $(".row.mm.pm-details-episodes-list").css( "overflow", "hidden" );
     $(".mm.pm-episode-card").attr( "id", "pm-show-episode-card" );
@@ -132,8 +134,10 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       $(".mm.pm-episode-card").css( "opacity", "1" );
     }, 50 );
     }
-    $scope.cardTitle = detail.title;
-    $scope.cardDescription = detail.description;
+      $scope.$apply( function() {
+        $scope.cardTitle = detail.title;
+        $scope.cardDescription = detail.description;
+      } );
 
     console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
 
