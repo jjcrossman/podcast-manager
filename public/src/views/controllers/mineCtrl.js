@@ -19,6 +19,8 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.detailsPodcastArtwork = "";
     $scope.detailsPodcastDescription = "";
     $scope.saveForPossibleResubscribe = {};
+    $scope.cardTitle = "";
+    $scope.cardDescription = "";
   }
 
   $scope.getPodcastsFromDb = () => {
@@ -34,43 +36,35 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       } );
   }
 
-
   $scope.populateDetails = ( podcast ) => {
-    console.log( "populateDetails fired", podcast );
     $scope.setSubscribeStatus();
     $scope.detailsPodcastTitle = podcast.title;
     $scope.detailsPodcastArtwork = podcast.artwork;
     $scope.detailsPodcastDescription = podcast.description;
-    // Reed RSS Feed and populate episode list()
-    $scope.retrieveRSSFeedInformation( podcast );
+    mineFcty.retrieveRSSFeedInformation( podcast.feed )
+    .then( data => {
+      console.log( "RSS feed data in mineCtrl", data );
+      for ( let i = 0; i < $scope.podcasts.length; i++ ) {
+        if ( $scope.podcasts[i].feed === data.feed ) {
+          $scope.podcasts[i].episodeTitles = data.episodeTitles;
+          $scope.podcasts[i].episodeDescriptions = data.episodeDescriptions;
+          $scope.podcasts[i].episodeUrls = data.episodeUrls;
+        }
+      }
+      for ( let i = 0; i < podcast.episodeTitles.length; i++ ) {
+        $scope.details.push( {
+          title: data.episodeTitles[i]
+          , description: data.episodeDescriptions[i]
+          , url: data.episodeUrls[i]
+          , sourceFeed: data.feed
+        } );
+      }
+      $scope.$apply( $scope.details );
+    } )
+    .catch( error => {
+      console.log( "Error in moreCtrl", error );
+    } );
   };
-
-  $scope.retrieveRSSFeedInformation = ( podcast ) => {
-
-      mineFcty.retrieveRSSFeedInformation( podcast.feed )
-      .then( data => {
-        console.log( "RSS feed data in mineCtrl", data );
-        for ( let i = 0; i < $scope.podcasts.length; i++ ) {
-          if ( $scope.podcasts[i].feed === data.feed ) {
-            $scope.podcasts[i].episodeTitles = data.episodeTitles;
-            $scope.podcasts[i].episodeDescriptions = data.episodeDescriptions;
-            $scope.podcasts[i].episodeUrls = data.episodeUrls;
-          }
-        }
-        for ( let i = 0; i < podcast.episodeTitles.length; i++ ) {
-          $scope.details.push( {
-            title: data.episodeTitles
-            , description: data.episodeDescriptions
-            , url: data.episodeUrls
-            , sourceFeed: data.feed
-          } );
-        }
-        console.log( "SCOPE DETAILS", $scope.details );
-      } )
-      .catch( error => {
-        console.log( "Error in moreCtrl", error );
-      } );
-    };
 
   $scope.flushDetails = () => {
     $timeout( function() {
@@ -80,7 +74,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
   };
 
   $scope.setSubscribeStatus = () => {
-    console.log( "setSubscribedStatus" );
+
     $("#pm-subscribe-button").attr("class", "fa fa-plus mm pm-rotate");
   };
 
@@ -123,8 +117,26 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     }
   }
 
-  $scope.toggleEpisodeCard = detail => {
-    console.log( "toggleEpisodeCard was fired" );
+  $scope.toggleEpisodeCard = ( detail ) => {
+    console.log( "toggleEpisodeCard was fired", detail );
+    if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
+      $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
+      $(".mm.pm-episode-card").css( "opacity", "0" );
+      $timeout( function() {
+        $(".mm.pm-episode-card").attr( "id", "" );
+      }, 500 );
+    } else {
+    $(".row.mm.pm-details-episodes-list").css( "overflow", "hidden" );
+    $(".mm.pm-episode-card").attr( "id", "pm-show-episode-card" );
+    $timeout( function() {
+      $(".mm.pm-episode-card").css( "opacity", "1" );
+    }, 50 );
+    }
+    $scope.cardTitle = detail.title;
+    $scope.cardDescription = detail.description;
+
+    console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
+
   };
 
 

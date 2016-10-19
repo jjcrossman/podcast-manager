@@ -215,7 +215,6 @@ body
   position: fixed
   right: -100%
   +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
-  z-index: 1
 
 .mm.pm-details-wrapper
   height: 100%
@@ -318,8 +317,6 @@ body
   display: none
   &:checked ~ #pm-podcast-description-card
     left: 6%
-  &:checked + h1
-    bottom: 58%
   &:checked + .pm-details-title-ticker
     opacity: 0
 
@@ -327,7 +324,8 @@ body
 .mm.pm-details-episodes-list
   height: 60%
   overflow: scroll
-  +bgGradient($pal-playergoogle, black)
+  position: relative
+  background-color: #000000
 
 .mm#detailstoggler
   display: none
@@ -339,7 +337,7 @@ body
 .mm.pm-episodes-li
   height: 18%
   width: 100%
-  background-color: black
+  background-color: #000000
   position: relative
   display: flex
   align-items: center
@@ -380,3 +378,66 @@ body
 /*******************************************************/
 /***************** Episode Detail Expansion ************/
 /******************************************************/
+
+.mm.pm-episode-card
+  // background-color: purple
+  background: -webkit-linear-gradient(black,#494949,black)
+  background: -o-linear-gradient(black,#494949,black)
+  background: -moz-linear-gradient(black,#494949,black)
+  background: linear-gradient(black,#494949,black)
+  display: none
+  opacity: 0
+  height: 42.1vh
+  width: 100%
+  position: fixed
+  top: 39vh
+  z-index: 1
+  +transition(all,.5s,linear,0s)
+
+.mm.pm-episode-card-title-wrapper
+  height: 20%
+  width: 100%
+  display: flex
+
+.mm.pm-episode-card-title
+  // background-color: red
+  width: 80%
+  height: 100%
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  padding-left: 3%
+  h3
+    margin: 0
+    font-size: 1.6em
+    color: #eeeeee
+
+.mm.pm-episode-card-buttons
+  // background-color: orange
+  width: 20%
+  height: 100%
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-right: 3%
+  .fa-minus-square-o
+    font-size: 2.5em
+    color: #eeeeee
+    opacity: 0.9
+  .fa-play-circle
+    font-size: 3em
+    color: #eeeeee
+    opacity: 0.9
+
+.mm.pm-episode-card-description
+  // background-color: blue
+  height: 70%
+  display: flex
+  padding: 5%
+  overflow: scroll
+  p
+    color: #eeeeee
+    font-size: 1.1em
+
+.mm#pm-show-episode-card
+  display: block

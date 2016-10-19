@@ -1,7 +1,6 @@
 function moreCtrl( $scope, $timeout, moreFcty ) {
 
   function init() {
-    $scope.activeLi = "";
     $scope.searchTerm = "";
     $scope.whichView = "pm-mine-bar";
     $timeout( function(){$scope.whichView = "pm-more-bar";}, 1);
@@ -139,6 +138,7 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       }, 1500);
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].title === $scope.detailsPodcastTitle && $scope.podcasts[i].artwork === $scope.detailsPodcastArtwork && $scope.podcasts[i].description === $scope.detailsPodcastDescription ) {
+          $scope.alreadySubscribed.push( $scope.podcasts[i] );
           moreFcty.sendPodcastToMongoDb( $scope.podcasts[i] );
         }
       }
