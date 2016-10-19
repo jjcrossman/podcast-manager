@@ -1,7 +1,6 @@
 function moreCtrl( $scope, $timeout, moreFcty ) {
 
   function init() {
-    $scope.activeLi = "";
     $scope.searchTerm = "";
     $scope.whichView = "pm-mine-bar";
     $timeout( function(){$scope.whichView = "pm-more-bar";}, 1);
@@ -91,6 +90,7 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         title: podcast.episodeTitles[i]
         , description: podcast.episodeDescriptions[i]
         , url: podcast.episodeUrls[i]
+        , sourceFeed: podcast.feed
       } );
     }
   };
@@ -138,10 +138,34 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       }, 1500);
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].title === $scope.detailsPodcastTitle && $scope.podcasts[i].artwork === $scope.detailsPodcastArtwork && $scope.podcasts[i].description === $scope.detailsPodcastDescription ) {
+          $scope.alreadySubscribed.push( $scope.podcasts[i] );
           moreFcty.sendPodcastToMongoDb( $scope.podcasts[i] );
         }
       }
     }
+  };
+
+  $scope.toggleEpisodeCard = ( detail ) => {
+    console.log( "toggleEpisodeCard was fired", detail );
+    if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
+      $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
+      $(".mm.pm-episode-card").css( "opacity", "0" );
+      $timeout( function() {
+        $(".mm.pm-episode-card").attr( "id", "" );
+      }, 300 );
+      return;
+    } else {
+    $(".row.mm.pm-details-episodes-list").css( "overflow", "hidden" );
+    $(".mm.pm-episode-card").attr( "id", "pm-show-episode-card" );
+    $timeout( function() {
+      $(".mm.pm-episode-card").css( "opacity", "1" );
+    }, 50 );
+    }
+    $scope.cardTitle = detail.title;
+    $scope.cardDescription = detail.description;
+    //
+    console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
+
   };
 
   init();

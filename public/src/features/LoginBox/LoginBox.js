@@ -6,7 +6,7 @@ function LoginBox() {
     template: LoginBoxTmpl
     , restrict: "E"
     , scope: {
-
+      loginFacebook: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 

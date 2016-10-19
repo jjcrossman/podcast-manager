@@ -14,6 +14,9 @@ function PodcastGrid() {
       , details: "="
       , subscribeToPodcast: "="
       , flushDetails: "="
+      , toggleEpisodeCard: "="
+      , cardTitle: "="
+      , cardDescription: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 

@@ -1,6 +1,6 @@
 <!--********************************************************************** **************************** The Slide In Details ************************ **************************************************************************-->
 
-<input ng-click="closeDescriptionAndLi()" type="checkbox" class="mm" id="detailstoggler"></input>
+<input type="checkbox" class="mm" id="detailstoggler"></input>
 
   <div class="row mm" id="pm-details-slider">
 
@@ -37,46 +37,61 @@
         </div>
 
         </div>
-
       </div>
-      <div class="row mm pm-details-episodes-list-wrapper">
-        <div class="col-xs-12 mm pm-details-episodes-list">
 
-          <div ng-repeat="detail in details track by $index" class="row mm pm-episodes-li" ng-attr-id="{{ activeLi }}">
+<!--*************************************************************************/
+/******************************* Episode List *****************************/
+/**************************************************************************/
+-->
 
-            <div class="col-xs-10 mm pm-li-title">
-                <div class="row mm pm-episode-title-wrapper">
-                  <div class="col-xs-12 mm pm-episode-title">
-                    <h3>{{ detail.title }}</h3>
-
-                    <i class="fa fa-clock-o"></i><p class="pm-episode-time">26:05</p>
-
-                  </div>
-                </div>
-                <div class="row mm pm-episode-description-wrapper">
-                    <div class="col-xs-12 mm pm-episode-description">
+      <div class="row mm pm-details-episodes-list">
 
 
-                      <p>{{ detail.description }}</p>
-                    </div>
+          <div ng-repeat="detail in details track by $index" class="mm pm-episodes-li">
+                <div class="mm pm-episode-title-wrapper">
+
+                  <h3>{{ detail.title }}</h3>
+
 
                 </div>
-            </div>
-            <div class="col-xs-2 mm pm-h100 pm-li-buttons">
-              <i ng-click="toggleActiveLi()" class="fa fa-play-circle" aria-hidden="true"></i>
-            </div>
+
+                <div class="mm pm-episode-buttons-wrapper">
+
+                  <i ng-click="toggleEpisodeCard( detail )" class="fa fa-plus-square-o" aria-hidden="true"></i>
+                  <i class="fa fa-play-circle" aria-hidden="true"></i>
+
+                </div>
+
+
           </div>
+          <div class="mm pm-episode-card">
+            <div class="mm pm-episode-card-title-wrapper">
+
+              <div class="mm pm-episode-card-title">
+
+                <h3>{{ cardTitle }}</h3>
+
+              </div>
+
+              <div class="mm pm-episode-card-buttons">
+                <i ng-click="toggleEpisodeCard( detail )" class="fa fa-minus-square-o" aria-hidden="true"></i>
+                <i class="fa fa-play-circle" aria-hidden="true"></i>
+
+              </div>
+
+            </div>
+            <div class="mm pm-episode-card-description">
+              <p>
+                {{ cardDescription }}
+              </p>
+
+            </div>
+
+
           </div>
 
         </div>
 
-
-
-
-
-
-
-      </div>
 
     </div>
 

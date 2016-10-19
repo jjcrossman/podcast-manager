@@ -9,6 +9,8 @@ function HeaderBar() {
         searchTerm: "="
         , whichView: "="
         , searchItunes: "="
+        , userAvatar: "="
+        , toggleDropDown: "="
     }
     , link: function( scope, elem, attr, ctrl ) {
 
