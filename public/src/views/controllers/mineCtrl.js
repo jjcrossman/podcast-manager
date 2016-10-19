@@ -8,7 +8,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.details = [];
     mineFcty.getPodcastsFromDb()
       .then( podcasts => {
-        console.log( "mineCtrl caught:", podcasts );
         for (var i = 0; i < podcasts.length; i++) {
           $scope.podcasts.push( podcasts[i] );
         }
@@ -25,7 +24,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
   $scope.getPodcastsFromDb = () => {
     mineFcty.getPodcastsFromDb()
       .then( podcasts => {
-        console.log( "mineCtrl caught:", podcasts );
           $scope.podcasts = [];
         for (var i = 0; i < podcasts.length; i++) {
           $scope.podcasts.push( podcasts[i] );
@@ -36,7 +34,19 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       } );
   }
 
+
+  $scope.populateDetails = ( podcast ) => {
+    console.log( "populateDetails fired", podcast );
+    $scope.setSubscribeStatus();
+    $scope.detailsPodcastTitle = podcast.title;
+    $scope.detailsPodcastArtwork = podcast.artwork;
+    $scope.detailsPodcastDescription = podcast.description;
+    // Reed RSS Feed and populate episode list()
+    $scope.retrieveRSSFeedInformation( podcast );
+  };
+
   $scope.retrieveRSSFeedInformation = ( podcast ) => {
+
       mineFcty.retrieveRSSFeedInformation( podcast.feed )
       .then( data => {
         console.log( "RSS feed data in mineCtrl", data );
@@ -52,25 +62,15 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
             title: podcast.episodeTitles[i]
             , description: podcast.episodeDescriptions[i]
             , url: podcast.episodeUrls[i]
+            , sourceFeed: data.feed
           } );
         }
-        console.log( $scope.details );
+        console.log( "SCOPE DETAILS", $scope.details );
       } )
       .catch( error => {
         console.log( "Error in moreCtrl", error );
       } );
     };
-
-  $scope.populateDetails = ( podcast ) => {
-    console.log( "populateDetails fired" );
-    console.log( podcast );
-    $scope.setSubscribeStatus();
-    $scope.detailsPodcastTitle = podcast.title;
-    $scope.detailsPodcastArtwork = podcast.artwork;
-    $scope.detailsPodcastDescription = podcast.description;
-    // Reed RSS Feed and populate episode list()
-    $scope.retrieveRSSFeedInformation( podcast );
-  };
 
   $scope.flushDetails = () => {
     $timeout( function() {
@@ -98,7 +98,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           $scope.saveForPossibleResubscribe = $scope.podcasts[i];
           mineFcty.removePodcast( $scope.podcasts[i] )
           .then( res => {
-            console.log( "mineCtrl line 94", res );
+            console.log( "remove from database" );
             $scope.getPodcastsFromDb();
           } )
           .catch( err => {
@@ -121,6 +121,10 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
               console.log( err );
             } );
     }
+  }
+
+  $scope.toggleEpisodeCard = detail => {
+    console.log( "toggleEpisodeCard was fired" );
   };
 
 

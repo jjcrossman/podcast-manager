@@ -2,22 +2,22 @@ import "../../../../node_modules/jquery/dist/jquery.js";
 
 function podcastgridCtrl( $scope ) {
   function init() {
-    $scope.activeLi = "";
+    $scope.showCard = "";
   }
 
-  $scope.toggleActiveLi = () => {
-    console.log( "toggleActiveLi fired" );
-    if ( $scope.activeLi ) {
-      $scope.activeLi = "";
+  $scope.toggleEpisodeCard = () => {
+    console.log( "toggleEpisodeCard fired" );
+    if ( $scope.showCard ) {
+      $scope.showCard = "";
     } else {
-      $scope.activeLi = "pm-li-active";
+      $scope.showCard = "pm-li-active";
     }
   };
 
-  $scope.closeDescriptionAndLi = () => {
-    console.log( "closeDescriptionAndLi fired" );
-    if ( $scope.activeLi ) {
-      $scope.activeLi = "";
+  $scope.hideEpisodeCard = () => {
+    console.log( "hideEpisodeCard fired" );
+    if ( $scope.showCard ) {
+      $scope.showCard = "";
     }
   };
 

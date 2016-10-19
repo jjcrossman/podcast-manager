@@ -44,7 +44,7 @@ function mineFcty( $http ) {
           } );
         }
         , retrieveRSSFeedInformation( feed ) {
-          console.log( "MINE FCTY RSSSCANNER was passed:", feed );
+          console.log( "MINE FCTY RSS SCANNER was passed:", feed );
           return $.get( feed ).then( function( data ) {
             let item = $(data).find("item");
             let entry = $(data).find("entry");

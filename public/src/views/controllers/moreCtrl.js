@@ -91,6 +91,7 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         title: podcast.episodeTitles[i]
         , description: podcast.episodeDescriptions[i]
         , url: podcast.episodeUrls[i]
+        , sourceFeed: podcast.feed
       } );
     }
   };
