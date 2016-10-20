@@ -35,11 +35,16 @@ module.exports = {
   , removePodcastFromUser( req, res ) {
     console.log( `This is /api/podcast/:id DELETE` );
     console.log( req.params.id );
-    User.findByIdAndUpdate( req.session.currentUser._id, { $pull: { subscriptions: req.params.id } }, ( err, response ) => {
+    User.findByIdAndUpdate( req.session.currentUser._id, { $pull: { subscriptions: req.params.id } }, ( err, removed ) => {
       if ( err ) {
         return res.status( 500 ).json( err );
       }
-      return res.status( 200 ).json( response );
+      Podcast.findByIdAndRemove( req.params.id, ( err, deleted ) => {
+        if ( err ) {
+          return res.status( 500 ).json( err );
+        }
+        return res.status( 200 ).json( deleted );
+      } )
     } );
   }
 };
