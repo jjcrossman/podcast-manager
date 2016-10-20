@@ -32,6 +32,10 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.saveForPossibleResubscribe = {};
     $scope.cardTitle = "";
     $scope.cardDescription = "";
+    $scope.episodeToPlay = "";
+    $scope.playerArtwork = "./images/noArtwork.png";
+    $scope.playerEpisodeTitle = "";
+    $scope.playerPodcastTitle = "";
   }
 
   $scope.getUserPodcastsFromDb = () => {
@@ -71,18 +75,21 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       console.log( "RSS feed data in mineCtrl", data );
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].feed === data.feed ) {
+
           $scope.podcasts[i].episodeTitles = data.episodeTitles;
           $scope.podcasts[i].episodeDescriptions = data.episodeDescriptions;
           $scope.podcasts[i].episodeUrls = data.episodeUrls;
+          for ( let j = 0; j < $scope.podcasts[i].episodeTitles.length; j++ ) {
+            $scope.details.push( {
+              title: $scope.podcasts[i].episodeTitles[j]
+              , description: $scope.podcasts[i].episodeDescriptions[j]
+              , url: $scope.podcasts[i].episodeUrls[j]
+              , artwork: $scope.podcasts[i].artwork
+              , podcastTitle: $scope.podcasts[i].title
+              , sourceFeed: $scope.podcasts[i].feed
+            } );
+          }
         }
-      }
-      for ( let i = 0; i < podcast.episodeTitles.length; i++ ) {
-        $scope.details.push( {
-          title: data.episodeTitles[i]
-          , description: data.episodeDescriptions[i]
-          , url: data.episodeUrls[i]
-          , sourceFeed: data.feed
-        } );
       }
       $scope.$apply();
 
@@ -185,7 +192,30 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
   };
 
 
+  $scope.playEpisode = detail => {
 
+    $scope.episodeToPlay = {
+      title: detail.title
+      , podcastTitle: detail.podcastTitle
+      , podcastArtwork: detail.artwork
+      , url: detail.url
+      , type: "audio/mp3"
+    };
+
+    $scope.playerArtwork = detail.artwork;
+    $scope.playerEpisodeTitle = detail.title;
+    $scope.playerPodcastTitle = detail.podcastTitle;
+    if ( $scope.playerEpisodeTitle.length > 43 ) {
+      $scope.playerEpisodeTitle = $scope.playerEpisodeTitle.slice( 0, 43 ) + "...";
+    }
+    if ( $scope.playerPodcastTitle.length > 59 ) {
+      $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 59 ) + "...";
+    }
+
+  console.log( "playEpisode fired", $scope.episodeToPlay );
+  $scope.playerBarReady();
+
+  };
 
   init();
 

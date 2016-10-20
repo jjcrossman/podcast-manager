@@ -1,29 +1,61 @@
 import videogularTheme from "videogular-themes-default";
 
 export default function playerbarCtrl( $scope, $sce ) {
+    this.currentTime = 0;
+    this.totalTime = 0;
+    this.state = null;
+    this.volume = 1;
+    this.isCompleted = false;
+    this.API = null;
+    this.onPlayerReady = function ( API ) {
+      console.log( "PLAYER API IS READY" );
+            this.API = API;
+    };
+
+    this.onError = function (event) {
+            console.log("VIDEOGULAR ERROR EVENT");
+            console.log(event);
+    };
+
+    this.onCompleteVideo = function () {
+        this.isCompleted = true;
+    };
+
+    this.onUpdateState = function (state) {
+        this.state = state;
+    };
+
+    this.onUpdateTime = function (currentTime, totalTime) {
+        this.currentTime = currentTime;
+        this.totalTime = totalTime;
+    };
+
+    this.onUpdateVolume = function (newVol) {
+        this.volume = newVol;
+    };
+
     this.config = {
-        sources: [ {
-            src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.mp4"),
-            type: "video/mp4"
-        }
-        , {
-            src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.webm"),
-            type: "video/webm"
-        }
-        , {
-            src: $sce.trustAsResourceUrl("http://static.videogular.com/assets/videos/videogular.ogg"),
-            type: "video/ogg"
-        } ]
-        , tracks: [ {
-            src: "http://www.videogular.com/assets/subs/pale-blue-dot.vtt"
-            , kind: "subtitles"
-            , srclang: "en"
-            , label: "English"
-            , default: ""
-        } ]
+        crossorigin: "anonymous"
+        , playsInline: false
+        , sources: ""
         , theme: videogularTheme
+        , autoHide: true
+        , autoHideTime: 5000
+        , autoPlay: true
+        , loop: false
+        , preload: "auto"
+        , controls: false
         , plugins: {
         }
     };
+
+    this.playerBarReady = () => {
+      this.config.sources = [ {
+        src: $sce.trustAsResourceUrl( $scope.episodeToPlay.url )
+        , type: "audio/mp3"
+      } ];
+      console.log( "playerBarReady fired", this.config );
+    };
+
 
 };

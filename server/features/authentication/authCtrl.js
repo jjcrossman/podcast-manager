@@ -4,7 +4,11 @@ module.exports = {
   getUserData( req, res ) {
     // req.user.data.id
     console.log( req.user );
+    console.log( req.session );
     console.log( "******req.user*******" );
+    if ( !req.user && !req.session.currentUser ) {
+      return res.status( 401 ).json( { unAuth: true } );
+    }
     req.session.facebook = req.user;
     // Does this user already exist? Look for a match in users by Facebook ID
     User.findOne( { fbId: req.user.id }, ( err, matchedUser ) => {

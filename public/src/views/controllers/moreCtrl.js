@@ -28,6 +28,10 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       .catch( error => {
         console.log( "mineCtrl error:", error );
       } );
+    $scope.episodeToPlay = "";
+    $scope.playerArtwork = "./images/noArtwork.png";
+    $scope.playerEpisodeTitle = "";
+    $scope.playerPodcastTitle = "";
   }
 
   $scope.searchItunes = ( searchTerm ) => {
@@ -195,6 +199,31 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         $(".pm-user-avatar-dropdown").attr("id", "pm-dropdown-show");
       }, 50);
     }
+  };
+
+  $scope.playEpisode = detail => {
+
+    $scope.episodeToPlay = {
+      title: detail.title
+      , podcastTitle: detail.podcastTitle
+      , podcastArtwork: detail.artwork
+      , url: detail.url
+      , type: "audio/mp3"
+    };
+
+    $scope.playerArtwork = detail.artwork;
+    $scope.playerEpisodeTitle = detail.title;
+    $scope.playerPodcastTitle = detail.podcastTitle;
+    if ( $scope.playerEpisodeTitle.length > 43 ) {
+      $scope.playerEpisodeTitle = $scope.playerEpisodeTitle.slice( 0, 43 ) + "...";
+    }
+    if ( $scope.playerPodcastTitle.length > 59 ) {
+      $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 59 ) + "...";
+    }
+
+  console.log( "playEpisode fired", $scope.episodeToPlay );
+  $scope.playerBarReady();
+
   };
 
   init();

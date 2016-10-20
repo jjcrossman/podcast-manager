@@ -473,11 +473,51 @@ body
 /***************** Player Bar ************/
 /******************************************************/
 
+.mm.pm-display-none
+  display: none
+
 .mm.pm-player-bar
   height: 19vh
   +bgGradient($pal-playerg1,$pal-playerg2)
 
 .mm.videogular-container
   width: 100%
-  margin: auto
   overflow: hidden
+
+.mm.videogular-container.audio
+  background-color: #505050
+  height: 100%
+  width: 100%
+  display: flex
+  justify-content: flex-start
+  flex-direction: row
+
+.mm.pm-player-bar-artwork-wrapper
+  height: 70%
+  width: 29%
+
+.mm.pm-player-bar-artwork
+  height: 100%
+  width: 100%
+
+.mm.pm-player-bar-titles-wrapper
+  height: 70%
+  width: 71%
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  h3
+    margin: 0% 0% 0% 3%
+    color: #ffffff
+  h4
+    margin: 0% 0% 0% 3%
+    color: #eeeeee
+
+.mm.pm-player-bar-play-button
+  font-size: 2em
+  
+.mm.pm-player-bar-speed-button
+  font-size: 1.5em
+
+.mm.pm-player-bar-volume-button
+  font-size: 1.8em
