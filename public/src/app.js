@@ -1,6 +1,10 @@
-// AngularJS, UI-Router, jQuery
+// AngularJS, UI-Router, ngSanitize, Videogular and jQuery
 import angular from "angular";
 import uiRouter from "angular-ui-router";
+import angularSanitize from "angular-sanitize";
+import videogular from "videogular";
+import videogularControls from "videogular-controls";
+import videogularBuffering from "videogular-buffering";
 import "../../node_modules/jquery/dist/jquery.js"
 
 
@@ -35,7 +39,7 @@ import LoginBox from "./features/LoginBox/LoginBox.js";
 /*******************************************************/
 
 // App
-angular.module( 'PodcastManager', [ uiRouter ] )
+angular.module( 'PodcastManager', [ uiRouter, angularSanitize, videogular, videogularControls, videogularBuffering ] )
 
 // Controllers
 .controller( "loginCtrl", loginCtrl )

@@ -13,6 +13,7 @@ function PlayerBar() {
 
     }
     , controller: PlayerBarCtrl
+    , controllerAs: "ctrl"
   }
 }
 
