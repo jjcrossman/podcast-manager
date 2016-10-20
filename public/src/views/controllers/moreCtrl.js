@@ -174,6 +174,9 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     }
     $scope.cardTitle = detail.title;
     $scope.cardDescription = detail.description;
+    if ( $scope.cardDescription === "" ) {
+      $scope.cardDescription = "This episode's description could not be retrieved."
+    }
     //
     console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
 

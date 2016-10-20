@@ -6,10 +6,12 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       .then( userObj => {
         console.log( "mineCtrl received:", userObj );
         $scope.userAvatar = userObj.avatar;
+        console.log( userObj.newUser );
         if ( !userObj.avatar ) {
           $(".pm-noavatar-icon").css("display", "inline-block");
         }
         if ( !userObj.newUser ) {
+          console.log( "getUserPodcastsFromDb fired in init" );
           $scope.getUserPodcastsFromDb();
         }
         if ( userObj.newUser ) {
@@ -35,10 +37,12 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
   $scope.getUserPodcastsFromDb = () => {
     mineFcty.getUserPodcastsFromDb()
       .then( podcasts => {
+        console.log( "mine line 40", podcasts );
           $scope.podcasts = [];
         for (var i = 0; i < podcasts.length; i++) {
           $scope.podcasts.push( podcasts[i] );
         }
+        console.log( "mine line 45", $scope.podcasts );
       } )
       .catch( error => {
         console.log( "mineCtrl error:", error );
@@ -112,7 +116,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].title === $scope.detailsPodcastTitle && $scope.podcasts[i].description === $scope.detailsPodcastDescription && $scope.podcasts[i].artwork === $scope.detailsPodcastArtwork ) {
           $scope.saveForPossibleResubscribe = $scope.podcasts[i];
-          mineFcty.removePodcast( $scope.podcasts[i] )
+          mineFcty.removePodcastFromUser( $scope.podcasts[i] )
           .then( res => {
             console.log( "remove from database" );
             $scope.getUserPodcastsFromDb();
@@ -129,7 +133,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
         $("p.pm-subscribed-alert").attr("id", "");
       }, 1500);
       $("#pm-subscribe-button").attr("class", "fa fa-plus mm pm-rotate");
-          mineFcty.sendPodcastToMongoDb( $scope.saveForPossibleResubscribe )
+          mineFcty.attachPodcastToUser( $scope.saveForPossibleResubscribe )
             .then( res => {
               $scope.getUserPodcastsFromDb();
             } )
@@ -157,6 +161,9 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     }
     $scope.cardTitle = detail.title;
     $scope.cardDescription = detail.description;
+    if ( $scope.cardDescription === "" ) {
+      $scope.cardDescription = "This episode's description could not be retrieved."
+    }
     //
     console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
 

@@ -3,14 +3,14 @@ function mineFcty( $http ) {
   return {
       getUserPodcastsFromDb() {
         return $http.get( "/api/podcast" ).then( podcasts => {
-          return podcasts.data;
+          return podcasts.data.subscriptions;
         } )
         .catch( err => {
           console.log( "mineFcty error", err );
           return err;
         } );
       }
-      , removePodcast( podcast ) {
+      , removePodcastFromUser( podcast ) {
         console.log( `removePodcast sent ${ podcast._id }` );
         return $http.delete( `/api/podcast/${ podcast._id }` ).then( res => {
           console.log( res );
@@ -21,7 +21,7 @@ function mineFcty( $http ) {
           return err;
         } );
       }
-      , sendPodcastToMongoDb( podcast ) {
+      , attachPodcastToUser( podcast ) {
         console.log( "sendPodcastToMongoDb ran in mineFcty" );
         //POST every episode to Episode collection
         //GET each episode's ObjectId
