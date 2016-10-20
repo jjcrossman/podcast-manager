@@ -12,8 +12,9 @@ module.exports = {
         return res.status( 200 ).json( users );
       } );
   }
-  , addUser( req, res ) {
+  , addNewUser( req, res ) {
     console.log( `This is /api/user POST` );
+    console.log( req.body );
     new User( req.body ).save( ( err, user ) => {
       if ( err ) {
         return res.status( 500 ).json( err );

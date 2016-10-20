@@ -11,11 +11,17 @@ const User = new mongoose.Schema( {
     type: String
     , default: "../images/noAvatar.png"
   }
-  , subscriptions: {
+  , fbId: {
+    type: Number
+    , required: true
+    , trim: true
+  }
+  , subscriptions: [ {
     type: mongoose.Schema.Types.ObjectId
     , ref: "Podcast"
-    , default: []
-  }
+    , required: true
+    , default: ""
+  } ]
 
 } );
 

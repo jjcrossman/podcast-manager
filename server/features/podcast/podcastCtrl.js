@@ -1,8 +1,10 @@
 const Podcast = require( "./Podcast.js" );
+const User = require( "../user/User.js" );
 
 module.exports = {
-  getPodcasts( req, res ) {
+  getUserPodcasts( req, res ) {
     console.log( `This is /api/podcast GET` );
+    User.findOne( {})
     Podcast.find( {}, ( err, podcasts ) => {
         if ( err ) {
           return res.status( 500 ).json( err );

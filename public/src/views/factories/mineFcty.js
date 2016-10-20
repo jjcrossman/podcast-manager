@@ -1,7 +1,7 @@
 function mineFcty( $http ) {
 
   return {
-      getPodcastsFromDb() {
+      getUserPodcastsFromDb() {
         return $http.get( "/api/podcast" ).then( podcasts => {
           return podcasts.data;
         } )
@@ -86,20 +86,11 @@ function mineFcty( $http ) {
             return error;
           } );
         }
-        , getFacebookUserData() {
-          return $http.get( "/api/auth" )
-            .then( userObj => {
-              let returnObj = {
-                firstName: userObj.data.name.givenName
-                , lastName: userObj.data.name.familyName
-                , avatar: userObj.data.photos[0].value
-                , fbObj: userObj
-              }
-              return returnObj;
-            } )
-            .catch( err => {
-              console.log( "mineFcty error:", err );
-            } );
+        , getUserData() {
+          return $http.get( "/api/auth/" );
+        }
+        , addNewUser( newUser ) {
+          return $http.post( "/api/user", newUser );
         }
   };
 

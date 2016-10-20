@@ -2,32 +2,28 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
 
   function init() {
     $scope.userAvatar = "";
-    mineFcty.getFacebookUserData()
+    mineFcty.getUserData()
       .then( userObj => {
         console.log( "mineCtrl received:", userObj );
-        $scope.userAvatar = userObj.avatar;
-        if ( !userObj.avatar ) {
+        $scope.userAvatar = userObj.data.avatar;
+        if ( !userObj.data.avatar ) {
           $(".pm-noavatar-icon").css("display", "inline-block");
+        }
+        if ( !userObj.data.newUser ) {
+          $scope.getUserPodcastsFromDb();
+        }
+        if ( userObj.data.newUser ) {
+          $scope.addNewUser( userObj.data );
         }
       } )
       .catch( err => {
         console.log( "Error getting user's data:", err );
       } );
-    $scope.trigger = 1;
     $scope.searchTerm = "";
     $scope.whichView = "pm-more-bar";
     $timeout( function(){$scope.whichView = "pm-mine-bar";}, 1);
     $scope.podcasts = [];
     $scope.details = [];
-    mineFcty.getPodcastsFromDb()
-      .then( podcasts => {
-        for (var i = 0; i < podcasts.length; i++) {
-          $scope.podcasts.push( podcasts[i] );
-        }
-      } )
-      .catch( error => {
-        console.log( "mineCtrl error:", error );
-      } );
     $scope.detailsPodcastTitle = "";
     $scope.detailsPodcastArtwork = "";
     $scope.detailsPodcastDescription = "";
@@ -36,8 +32,8 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.cardDescription = "";
   }
 
-  $scope.getPodcastsFromDb = () => {
-    mineFcty.getPodcastsFromDb()
+  $scope.getUserPodcastsFromDb = () => {
+    mineFcty.getUserPodcastsFromDb()
       .then( podcasts => {
           $scope.podcasts = [];
         for (var i = 0; i < podcasts.length; i++) {
@@ -48,6 +44,18 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
         console.log( "mineCtrl error:", error );
       } );
   }
+
+  $scope.addNewUser = ( newUser ) => {
+
+    mineFcty.addNewUser( newUser )
+      .then( madeNewUser => {
+        console.log( "mineCtrl 52", madeNewUser );
+      } )
+      .catch( err => {
+        console.log( "mineCtrl 55", err );
+      } );
+
+  };
 
   $scope.populateDetails = ( podcast ) => {
     $scope.setSubscribeStatus();
@@ -107,7 +115,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           mineFcty.removePodcast( $scope.podcasts[i] )
           .then( res => {
             console.log( "remove from database" );
-            $scope.getPodcastsFromDb();
+            $scope.getUserPodcastsFromDb();
           } )
           .catch( err => {
             console.log( err );
@@ -123,7 +131,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       $("#pm-subscribe-button").attr("class", "fa fa-plus mm pm-rotate");
           mineFcty.sendPodcastToMongoDb( $scope.saveForPossibleResubscribe )
             .then( res => {
-              $scope.getPodcastsFromDb();
+              $scope.getUserPodcastsFromDb();
             } )
             .catch( err => {
               console.log( err );
