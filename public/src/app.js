@@ -2,13 +2,9 @@
 import angular from "angular";
 import uiRouter from "angular-ui-router";
 import "../../node_modules/jquery/dist/jquery.js"
-// import ngAria from "angular-aria";
-// import ngAnimate from "angular-animate";
-// import ngMaterial from "angular-material";
 
 
 // Styles
-// import "../styles/ngMaterial/angular-material.css";
 import "font-awesome-webpack";
 import "../styles/bootstrap/css/bootstrap.css";
 import "../styles/bootstrap/css/bootstrap-theme.css";
