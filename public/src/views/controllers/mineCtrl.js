@@ -5,15 +5,15 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     mineFcty.getUserData()
       .then( userObj => {
         console.log( "mineCtrl received:", userObj );
-        $scope.userAvatar = userObj.data.avatar;
-        if ( !userObj.data.avatar ) {
+        $scope.userAvatar = userObj.avatar;
+        if ( !userObj.avatar ) {
           $(".pm-noavatar-icon").css("display", "inline-block");
         }
-        if ( !userObj.data.newUser ) {
+        if ( !userObj.newUser ) {
           $scope.getUserPodcastsFromDb();
         }
-        if ( userObj.data.newUser ) {
-          $scope.addNewUser( userObj.data );
+        if ( userObj.newUser ) {
+          $scope.addNewUser( userObj );
         }
       } )
       .catch( err => {

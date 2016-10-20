@@ -90,10 +90,10 @@ function moreFcty( $http, $q ) {
     } );
   }
 
-  , getPodcastsFromDb() {
-    console.log( "MoreFcty fired getPodcastsFromDb" );
-    return $http.get( "/api/podcast" ).then( podcasts => {
-      return podcasts.data;
+  , getUserPodcastsFromDb() {
+    console.log( "MoreFcty fired getUserPodcastsFromDb" );
+    return $http.get( "/api/podcast" ).then( userWithPodcasts => {
+      return userWithPodcasts.data.subscriptions;
     } )
     .catch( err => {
       console.log( "moreFcty error", err );
@@ -101,7 +101,7 @@ function moreFcty( $http, $q ) {
     } );
   }
 
-  , sendPodcastToMongoDb( podcast ) {
+  , attachPodcastToUser( podcast ) {
     console.log( "send to mongoDB ran in moreFcty" );
     //POST every episode to Episode collection
     //GET each episode's ObjectId
@@ -123,7 +123,7 @@ function moreFcty( $http, $q ) {
         return err;
       } );
   }
-  , removePodcast( podcast ) {
+  , removePodcastFromUser( podcast ) {
     console.log( `removePodcast sent ${ podcast._id }` );
     return $http.delete( `/api/podcast/${ podcast._id }` ).then( res => {
       console.log( res );
@@ -133,6 +133,15 @@ function moreFcty( $http, $q ) {
       console.log( err );
       return err;
     } );
+  }
+  , getUserAvatar() {
+      return $http.get( "/api/user/avatar" ).then( userAvatar => {
+        console.log( "User's avatar", userAvatar );
+        return userAvatar.data;
+      } )
+      .catch( err => {
+        console.log( "moreFcty 142", err );
+      } );
   }
 
   }

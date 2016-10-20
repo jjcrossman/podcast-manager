@@ -4,7 +4,7 @@ module.exports = {
   getUserData( req, res ) {
     // req.user.data.id
     console.log( req.user );
-    console.log( "******WHAT*******" );
+    console.log( "******req.user*******" );
     req.session.facebook = req.user;
     // Does this user already exist? Look for a match in users by Facebook ID
     User.findOne( { fbId: req.user.id }, ( err, matchedUser ) => {
@@ -28,7 +28,8 @@ module.exports = {
         return res.status( 200 ).json( newUser );
       }
       //use existing user
-      console.log( 'Using Existing Found User' );
+      console.log( 'Found user. Using existing user' );
+      req.session.currentUser = matchedUser;
       return res.status( 200 ).json( matchedUser );
     } );
 

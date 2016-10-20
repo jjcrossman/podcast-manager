@@ -19,7 +19,12 @@ module.exports = {
       if ( err ) {
         return res.status( 500 ).json( err );
       }
+      req.session.currentUser = user;
+      console.log( req.session.currentUser );
       return res.status( 201 ).json( user );
     } );
+  }
+  , getUserAvatar( req, res ) {
+      return res.status( 200 ).json( req.session.currentUser.avatar );
   }
 };

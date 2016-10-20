@@ -1,13 +1,24 @@
 function moreCtrl( $scope, $timeout, moreFcty ) {
 
   function init() {
+    moreFcty.getUserAvatar()
+      .then( userAvatar => {
+        console.log( "moreCtrl received:", userAvatar );
+        $scope.userAvatar = userAvatar;
+        if ( !userAvatar ) {
+          $(".pm-noavatar-icon").css("display", "inline-block");
+        }
+      } )
+      .catch( err => {
+        console.log( "Error getting user's data:", err );
+      } );
     $scope.searchTerm = "";
     $scope.whichView = "pm-mine-bar";
     $timeout( function(){$scope.whichView = "pm-more-bar";}, 1);
     $scope.podcasts = [];
     $scope.details = [];
     $scope.alreadySubscribed = [];
-    moreFcty.getPodcastsFromDb()
+    moreFcty.getUserPodcastsFromDb()
       .then( podcasts => {
         console.log( "mineCtrl caught:", podcasts );
         for (var i = 0; i < podcasts.length; i++) {
@@ -110,15 +121,15 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       $timeout( function() {
         $("p.pm-unsubscribed-alert").attr("id", "");
       }, 1500);
-      moreFcty.getPodcastsFromDb()
+      moreFcty.getUserPodcastsFromDb()
       .then( podcasts => {
         console.log( "moreCtrl line 115",podcasts );
         for ( let i = 0; i < podcasts.length; i++ ) {
           if ( podcasts[i].title === $scope.detailsPodcastTitle && podcasts[i].description === $scope.detailsPodcastDescription && podcasts[i].artwork === $scope.detailsPodcastArtwork ) {
             $scope.saveForPossibleResubscribe = podcasts[i];
-            moreFcty.removePodcast( podcasts[i] )
+            moreFcty.removePodcastFromUser( podcasts[i] )
             .then( res => {
-              console.log( "moreCtrl line 121", res );
+              console.log( "moreCtrl line 132", res );
             } )
             .catch( err => {
               console.log( err );
@@ -139,7 +150,7 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].title === $scope.detailsPodcastTitle && $scope.podcasts[i].artwork === $scope.detailsPodcastArtwork && $scope.podcasts[i].description === $scope.detailsPodcastDescription ) {
           $scope.alreadySubscribed.push( $scope.podcasts[i] );
-          moreFcty.sendPodcastToMongoDb( $scope.podcasts[i] );
+          moreFcty.attachPodcastToUser( $scope.podcasts[i] );
         }
       }
     }
@@ -166,6 +177,21 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     //
     console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
 
+  };
+
+  $scope.toggleDropDown = () => {
+
+    if ( $(".pm-user-avatar-dropdown").attr("id") === "pm-dropdown-show" ) {
+        $(".pm-user-avatar-dropdown").attr("id", "");
+      $timeout( function() {
+        $(".pm-user-avatar-dropdown").css("display", "none");
+      }, 300);
+    } else {
+      $(".pm-user-avatar-dropdown").css("display", "block");
+      $timeout( function() {
+        $(".pm-user-avatar-dropdown").attr("id", "pm-dropdown-show");
+      }, 50);
+    }
   };
 
   init();

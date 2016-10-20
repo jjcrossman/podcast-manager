@@ -87,7 +87,12 @@ function mineFcty( $http ) {
           } );
         }
         , getUserData() {
-          return $http.get( "/api/auth/" );
+          return $http.get( "/api/auth/" ).then( userObj => {
+            return userObj.data;
+          } )
+          .catch( err => {
+            console.log( "mineFcty 94", err );
+          } );
         }
         , addNewUser( newUser ) {
           return $http.post( "/api/user", newUser );
