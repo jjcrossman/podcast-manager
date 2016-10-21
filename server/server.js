@@ -11,14 +11,14 @@ const port = 4000;
 const mongoUri = "mongodb://localhost:27017/podcastmanager";
 
 // USE
-app.use( cors( config.cors ) );
-app.all( '*', function (req, res, next) {
-  res.header( "Content-Type", "application/json" );
-  res.header( "Access-Control-Allow-Origin", "*" );
-   res.header( 'Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS' );
-  res.header( "Access-Control-Allow-Headers", "X-Requested-With, Content-Type" );
-  next();
-} );
+// app.use( cors( config.cors ) );
+// app.all( '*', function (req, res, next) {
+//   res.header( "Content-Type", "application/json" );
+//   res.header( "Access-Control-Allow-Origin", "*" );
+//    res.header( 'Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS' );
+//   res.header( "Access-Control-Allow-Headers", "X-Requested-With, Content-Type" );
+//   next();
+// } );
 
 app.use( json() );
 app.use( session( config.podcastManager ) );
@@ -59,17 +59,17 @@ mongoose.connection.once( "open", () => console.log( `Mongoose connected to Mong
 // Master Routes
 require( "./masterRoutes.js" )( app );
 
-app.options( 'https://itunes.apple.com/search', function(req, res) {
-  res.status(200).set({
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-    'X-XSS-Protection': '1; mode=block',
-    'X-Frame-Options': 'SAMEORIGIN',
-    'Content-Security-Policy': "default-src 'self'"
-  }).send();
-});
+// app.options( 'https://itunes.apple.com/search', function(req, res) {
+//   res.status(200).set({
+//     'Content-Type': 'application/json',
+//     'Access-Control-Allow-Origin': '*',
+//     'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+//     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+//     'X-XSS-Protection': '1; mode=block',
+//     'X-Frame-Options': 'SAMEORIGIN',
+//     'Content-Security-Policy': "default-src 'self'"
+//   }).send();
+// });
 
 // LISTEN
 app.listen( port, () => console.log( `Podcast Manager is listening on port ${ port }` ) );
