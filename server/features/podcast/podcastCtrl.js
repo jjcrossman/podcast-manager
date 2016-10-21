@@ -11,8 +11,7 @@ module.exports = {
         if ( err ) {
           return res.status( 500 ).json( err );
         }
-        console.log( "!%!%!%!%!%!%!%!%!" );
-        console.log( userWithPodcasts );
+        console.log( "Returning user populated with Podcasts" );
         return res.status( 200 ).json( userWithPodcasts );
       } );
   }
@@ -27,7 +26,7 @@ module.exports = {
         if ( err ) {
           return res.status( 500 ).json( err );
         }
-        console.log( "***podcast added to User" );
+        console.log( "Podcast added to User" );
         return res.status( 201 ).json( response );
       } );
     } );

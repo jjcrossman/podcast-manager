@@ -32,6 +32,8 @@ function moreFcty( $http, $q ) {
             , podcastEpisodeUrls: []
           }
 
+          console.log( "Returning iTunes", returnObj );
+
           return returnObj;
         } } )
           .catch( error => {

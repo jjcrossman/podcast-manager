@@ -10,6 +10,7 @@ export default function playerbarCtrl( $scope, $sce ) {
     this.onPlayerReady = function ( API ) {
       console.log( "PLAYER API IS READY" );
             this.API = API;
+            this.API.stop();
     };
 
     this.onError = function (event) {
@@ -23,6 +24,7 @@ export default function playerbarCtrl( $scope, $sce ) {
 
     this.onUpdateState = function (state) {
         this.state = state;
+        console.log( "QUACK" );
     };
 
     this.onUpdateTime = function (currentTime, totalTime) {
@@ -43,17 +45,20 @@ export default function playerbarCtrl( $scope, $sce ) {
         , autoHideTime: 5000
         , autoPlay: true
         , loop: false
-        , preload: "auto"
+        , preload: true
         , controls: false
         , plugins: {
         }
     };
 
     this.playerBarReady = () => {
+      this.API.autoPlay = true;
       this.config.sources = [ {
         src: $sce.trustAsResourceUrl( $scope.episodeToPlay.url )
         , type: "audio/mp3"
       } ];
+      console.log( "fuck", this );
+
       console.log( "playerBarReady fired", this.config );
     };
 

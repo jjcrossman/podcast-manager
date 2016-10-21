@@ -29,9 +29,10 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         console.log( "mineCtrl error:", error );
       } );
     $scope.episodeToPlay = "";
-    $scope.playerArtwork = "./images/noArtwork.png";
+    $scope.playerArtwork = "./src/features/images/noArtwork.png";
     $scope.playerEpisodeTitle = "";
     $scope.playerPodcastTitle = "";
+    $scope.expansionNeedsDetail = "";
   }
 
   $scope.searchItunes = ( searchTerm ) => {
@@ -105,6 +106,8 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         title: podcast.episodeTitles[i]
         , description: podcast.episodeDescriptions[i]
         , url: podcast.episodeUrls[i]
+        , artwork: podcast.artwork
+        , podcastTitle: podcast.title
         , sourceFeed: podcast.feed
       } );
     }
@@ -115,6 +118,13 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         $scope.details = [];
         console.log( "details flushed", $scope.details );
       }, 500);
+    if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
+      $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
+      $(".mm.pm-episode-card").css( "opacity", "0" );
+      $timeout( function() {
+        $(".mm.pm-episode-card").attr( "id", "" );
+      }, 300 );
+    }
   };
 
   $scope.subscribeToPodcast = () => {
@@ -178,11 +188,12 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     }
     $scope.cardTitle = detail.title;
     $scope.cardDescription = detail.description;
+    $scope.expansionNeedsDetail = detail;
     if ( $scope.cardDescription === "" ) {
       $scope.cardDescription = "This episode's description could not be retrieved."
     }
     //
-    console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
+    console.log( "cardTitle", $scope.cardTitle );
 
   };
 
@@ -203,6 +214,12 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
 
   $scope.playEpisode = detail => {
 
+    if ( !detail ) {
+      detail = $scope.expansionNeedsDetail;
+    }
+
+    console.log(  "play this please", detail);
+
     $scope.episodeToPlay = {
       title: detail.title
       , podcastTitle: detail.podcastTitle
@@ -211,14 +228,15 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       , type: "audio/mp3"
     };
 
+
     $scope.playerArtwork = detail.artwork;
     $scope.playerEpisodeTitle = detail.title;
     $scope.playerPodcastTitle = detail.podcastTitle;
-    if ( $scope.playerEpisodeTitle.length > 43 ) {
-      $scope.playerEpisodeTitle = $scope.playerEpisodeTitle.slice( 0, 43 ) + "...";
+    if ( $scope.playerEpisodeTitle.length > 60 ) {
+      $scope.playerEpisodeTitle = $scope.playerEpisodeTitle.slice( 0, 60 ) + "...";
     }
-    if ( $scope.playerPodcastTitle.length > 59 ) {
-      $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 59 ) + "...";
+    if ( $scope.playerPodcastTitle.length > 24 ) {
+      $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 24 ) + "...";
     }
 
   console.log( "playEpisode fired", $scope.episodeToPlay );

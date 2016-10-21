@@ -3,9 +3,6 @@ const User = require( "../user/User.js" );
 module.exports = {
   getUserData( req, res ) {
     // req.user.data.id
-    console.log( req.user );
-    console.log( req.session );
-    console.log( "******req.user*******" );
     if ( !req.user && !req.session.currentUser ) {
       return res.status( 401 ).json( { unAuth: true } );
     }
@@ -13,11 +10,10 @@ module.exports = {
     // Does this user already exist? Look for a match in users by Facebook ID
     User.findOne( { fbId: req.user.id }, ( err, matchedUser ) => {
       if ( err ) {
-        console.log( "LINE 12 err" );
+        console.log( "LINE 16 err" );
         return res.status( 500 ).json( err );
       }
       // Is matchedUser null (make new user) or has data (existing user)
-      console.log( matchedUser );
       if ( !matchedUser ) {
         //make new user
         let fullName = req.session.facebook.name.givenName + " " + req.session.facebook.name.familyName;

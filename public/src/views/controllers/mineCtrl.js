@@ -6,7 +6,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       .then( userObj => {
         console.log( "mineCtrl received:", userObj );
         $scope.userAvatar = userObj.avatar;
-        console.log( userObj.newUser );
         if ( !userObj.avatar ) {
           $(".pm-noavatar-icon").css("display", "inline-block");
         }
@@ -33,9 +32,10 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.cardTitle = "";
     $scope.cardDescription = "";
     $scope.episodeToPlay = "";
-    $scope.playerArtwork = "./images/noArtwork.png";
+    $scope.playerArtwork = "./src/features/images/noArtwork.png";
     $scope.playerEpisodeTitle = "";
     $scope.playerPodcastTitle = "";
+    $scope.expansionNeedsDetail = "";
   }
 
   $scope.getUserPodcastsFromDb = () => {
@@ -104,6 +104,13 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
         $scope.details = [];
         console.log( "details flushed", $scope.details );
       }, 500);
+    if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
+      $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
+      $(".mm.pm-episode-card").css( "opacity", "0" );
+      $timeout( function() {
+        $(".mm.pm-episode-card").attr( "id", "" );
+      }, 300 );
+    }
   };
 
   $scope.setSubscribeStatus = () => {
@@ -168,11 +175,12 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     }
     $scope.cardTitle = detail.title;
     $scope.cardDescription = detail.description;
+    $scope.expansionNeedsDetail = detail;
     if ( $scope.cardDescription === "" ) {
       $scope.cardDescription = "This episode's description could not be retrieved."
     }
     //
-    console.log( "cardTitle and cardDescription", $scope.cardTitle, $scope.cardDescription );
+    console.log( "cardTitle and cardDescription", $scope.cardTitle );
 
   };
 
@@ -194,6 +202,10 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
 
   $scope.playEpisode = detail => {
 
+    if ( !detail ) {
+      detail = $scope.expansionNeedsDetail;
+    }
+
     $scope.episodeToPlay = {
       title: detail.title
       , podcastTitle: detail.podcastTitle
@@ -205,11 +217,11 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.playerArtwork = detail.artwork;
     $scope.playerEpisodeTitle = detail.title;
     $scope.playerPodcastTitle = detail.podcastTitle;
-    if ( $scope.playerEpisodeTitle.length > 43 ) {
-      $scope.playerEpisodeTitle = $scope.playerEpisodeTitle.slice( 0, 43 ) + "...";
+    if ( $scope.playerEpisodeTitle.length > 60 ) {
+      $scope.playerEpisodeTitle = $scope.playerEpisodeTitle.slice( 0, 60 ) + "...";
     }
-    if ( $scope.playerPodcastTitle.length > 59 ) {
-      $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 59 ) + "...";
+    if ( $scope.playerPodcastTitle.length > 24 ) {
+      $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 24 ) + "...";
     }
 
   console.log( "playEpisode fired", $scope.episodeToPlay );
