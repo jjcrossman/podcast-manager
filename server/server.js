@@ -28,9 +28,9 @@ app.use( express.static( `${ __dirname }/../public` ) );
 
 // Facebook Strategy
 passport.use(new FacebookStrategy({
-    clientID: config.facebook.clientId,
-    clientSecret: config.facebook.secret,
-    callbackURL: config.facebook.cbUrl,
+    clientID: process.env.FACEBOOK_CLIENT_ID ? process.env.FACEBOOK_CLIENT_ID : config.facebook.clientId,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET ? process.env.FACEBOOK_CLIENT_SECRET : config.facebook.secret,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL ? process.env.FACEBOOK_CALLBACK_URL : config.facebook.cbUrl,
     profileFields: ["name","picture.type(small)"]
   },
   function(accessToken, refreshToken, profile, done) {
