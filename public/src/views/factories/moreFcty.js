@@ -2,7 +2,7 @@ function moreFcty( $http, $q ) {
 
   let itunesSearchUrl = "https://itunes.apple.com/search?term=";
   let itunesSearchQuery = "";
-  let itunesSearchParameters = "&country=us&media=podcast&entity=podcast&limit=10";
+  let itunesSearchParameters = "&country=us&media=podcast&entity=podcast&limit=20";
 
   return {
 
