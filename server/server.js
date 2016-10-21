@@ -7,11 +7,11 @@ const FacebookStrategy = require( "passport-facebook" ).Strategy;
 const { json } = require( "body-parser" );
 const mongoose = require( "mongoose" );
 const cors = require( "cors" );
-const port = 4000;
-const mongoUri = "mongodb://localhost:27017/podcastmanager";
+const port = process.env.PORT ? process.env.PORT : 4000;
+const mongoUri = process.env.MONGOURI ? process.env.MONGOURI : "mongodb://localhost:27017/podcastmanager";
 
 // USE
-// app.use( cors( config.cors ) );
+app.use( cors( ) );
 // app.all( '*', function (req, res, next) {
 //   res.header( "Content-Type", "application/json" );
 //   res.header( "Access-Control-Allow-Origin", "*" );
