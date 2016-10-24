@@ -5,7 +5,10 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     mineFcty.getUserData()
       .then( userObj => {
         console.log( "mineCtrl received:", userObj );
-        $scope.userAvatar = userObj.avatar;
+        if ( userObj.avatar ) {
+          $scope.userAvatar = userObj.avatar;
+
+        }
         if ( !userObj.avatar ) {
           $(".pm-noavatar-icon").css("display", "inline-block");
         }
@@ -199,12 +202,23 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     }
   };
 
+  // $scope.togglePlayerBar = () => {
+    // if ( $(".mm.videogular-container-wrapper").css("display") === "none" ) {
+    //   $(".mm.videogular-container-wrapper").css("display", "block");
+    //   $(".mm#pm-podcast-grid").css("height", "60vh");
+    //   $(".mm.pm-podcast-grid-square").css("height", "53%");
+    //   $(".mm.pm-details-episodes-list").css("height", "73%");
+    //
+    // }
+  // };
 
   $scope.playEpisode = detail => {
 
     if ( !detail ) {
       detail = $scope.expansionNeedsDetail;
     }
+
+    // $scope.togglePlayerBar();
 
     $scope.episodeToPlay = {
       title: detail.title
