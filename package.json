@@ -2,7 +2,7 @@
   "name": "podcast-manager",
   "version": "1.0.0",
   "description": "a podcast manager web app",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js",
