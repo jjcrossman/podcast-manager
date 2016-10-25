@@ -21,7 +21,7 @@ app.use( cors( ) );
 // } );
 
 app.use( json() );
-app.use( session( { secret: process.env.SESSION_SECRET || "keyboard cat", resave: false, saveUninitialized: false ) );
+app.use( session( { secret: process.env.SESSION_SECRET || "keyboard cat", resave: false, saveUninitialized: false } ) );
 app.use( passport.initialize() );
 app.use( passport.session() );
 app.use( express.static( `${ __dirname }/../public` ) );
