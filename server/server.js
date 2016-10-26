@@ -8,7 +8,7 @@ const { json } = require( "body-parser" );
 const mongoose = require( "mongoose" );
 const cors = require( "cors" );
 const port = process.env.PORT ? process.env.PORT : 4000;
-const mongoUri = process.env.MONGOURI;
+const mongoUri = process.env.MONGOURI ? process.env.MONGOURI : "mongodb://localhost:27017/podcastmanager";
 
 // USE
 app.use( cors( ) );
@@ -28,9 +28,9 @@ app.use( express.static( `${ __dirname }/../public` ) );
 
 // Facebook Strategy
 passport.use(new FacebookStrategy({
-    clientID: process.env.FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: process.env.FACEBOOK_CALLBACK_URL,
+    clientID: process.env.FACEBOOK_CLIENT_ID ? process.env.FACEBOOK_CLIENT_ID : config.facebook.clientId,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET ? process.env.FACEBOOK_CLIENT_SECRET : config.facebook.secret,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL ? process.env.FACEBOOK_CALLBACK_URL : config.facebook.cbUrl,
     profileFields: ["name","picture.type(small)"]
   },
   function(accessToken, refreshToken, profile, done) {
@@ -39,8 +39,8 @@ passport.use(new FacebookStrategy({
 
 app.get( "/auth/facebook", passport.authenticate( "facebook" ) );
 app.get( "/auth/facebook/callback", passport.authenticate( "facebook", {
-  successRedirect: "https://obscure-citadel-80333.herokuapp.com/#/mine"
-  , failureRedirect: "https://obscure-citadel-80333.herokuapp.com/#/"
+  successRedirect: "/#/mine"
+  , failureRedirect: "/"
 } ) );
 
 passport.serializeUser( ( user, done ) => {
