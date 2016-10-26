@@ -6,4 +6,6 @@ module.exports = app => {
     .post( podcastCtrl.attachPodcastToUser );
   app.route( "/api/podcast/:id")
     .delete( podcastCtrl.removePodcastFromUser );
+  app.route( "/api/itunes" )
+    .get( podcastCtrl.queryItunes );
 };

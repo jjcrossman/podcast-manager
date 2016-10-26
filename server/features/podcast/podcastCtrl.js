@@ -1,6 +1,10 @@
 const Podcast = require( "./Podcast.js" );
 const User = require( "../user/User.js" );
 
+let itunesSearchUrl = "https://itunes.apple.com/search?term=";
+let itunesSearchQuery = "";
+let itunesSearchParameters = "&country=us&media=podcast&entity=podcast&limit=20";
+
 module.exports = {
   getUserPodcasts( req, res ) {
     console.log( `This is /api/podcast GET` );
@@ -45,5 +49,10 @@ module.exports = {
         return res.status( 200 ).json( deleted );
       } )
     } );
+  }
+  , queryItunes( req, res ) {
+    console.log( "8*8***888*888888*88*******888*888**8" );
+    console.log( req.body );
+    itunesSearchQuery = req.body;
   }
 };
