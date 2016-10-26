@@ -39,8 +39,8 @@ passport.use(new FacebookStrategy({
 
 app.get( "/auth/facebook", passport.authenticate( "facebook" ) );
 app.get( "/auth/facebook/callback", passport.authenticate( "facebook", {
-  successRedirect: "/#/mine"
-  , failureRedirect: "/"
+  successRedirect: "https://obscure-citadel-80333.herokuapp.com/#/mine"
+  , failureRedirect: "https://obscure-citadel-80333.herokuapp.com/#/"
 } ) );
 
 passport.serializeUser( ( user, done ) => {
