@@ -8,7 +8,7 @@ const { json } = require( "body-parser" );
 const mongoose = require( "mongoose" );
 const cors = require( "cors" );
 const port = process.env.PORT ? process.env.PORT : 4000;
-const mongoUri = process.env.MONGOURI ? process.env.MONGOURI : "mongodb://localhost:27017/podcastmanager";
+const mongoUri = process.env.MONGOURI;
 
 // USE
 app.use( cors( ) );
