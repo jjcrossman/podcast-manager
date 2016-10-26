@@ -11,7 +11,7 @@ const port = process.env.PORT ? process.env.PORT : 4000;
 const mongoUri = process.env.MONGOURI ? process.env.MONGOURI : "mongodb://localhost:27017/podcastmanager";
 
 // USE
-app.use( cors( ) );
+app.use( cors( { origin: "https://podcast-manager.herokuapp.com/" } ) );
 // app.all( '*', function (req, res, next) {
 //   res.header( "Content-Type", "application/json" );
 //   res.header( "Access-Control-Allow-Origin", "*" );
