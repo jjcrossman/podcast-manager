@@ -197,15 +197,15 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     }
   };
 
-  // $scope.togglePlayerBar = () => {
-    // if ( $(".mm.videogular-container-wrapper").css("display") === "none" ) {
-    //   $(".mm.videogular-container-wrapper").css("display", "block");
-    //   $(".mm#pm-podcast-grid").css("height", "60vh");
-    //   $(".mm.pm-podcast-grid-square").css("height", "53%");
-    //   $(".mm.pm-details-episodes-list").css("height", "73%");
-    //
-    // }
-  // };
+  $scope.togglePlayerBar = () => {
+    if ( $(".mm.videogular-container-wrapper").css("display") === "none" ) {
+      $(".mm.videogular-container-wrapper").css("display", "block");
+      $(".mm#pm-podcast-grid").css("height", "68vh");
+      $(".mm.pm-podcast-grid-square").css("height", "38%");
+      $(".mm.pm-details-episodes-list").css("height", "57%");
+
+    }
+  };
 
   $scope.playEpisode = detail => {
 
@@ -213,7 +213,7 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       detail = $scope.expansionNeedsDetail;
     }
 
-    // $scope.togglePlayerBar();
+    $scope.togglePlayerBar();
 
     $scope.episodeToPlay = {
       title: detail.title

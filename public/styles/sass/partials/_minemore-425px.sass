@@ -127,7 +127,7 @@ body
 .mm#pm-podcast-grid
   display: flex
   flex-wrap: wrap
-  height: 70vh
+  height: 89vh
   overflow-y: scroll
   overflow-x: hidden
   position: relative
@@ -135,10 +135,16 @@ body
   left: 0%
   +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
 
+.mm#pm-podcast-grid.popup
+  height: 70vh
+
 .mm.pm-podcast-grid-square
-  height: 37.5%
+  height: 29%
   width: 50%
   position: relative
+
+.mm.pm-podcast-grid-square.popup
+  height: 37.5%
 
 #pm-details
 
@@ -361,7 +367,7 @@ body
     left: -100%
 
 .mm.pm-episodes-li
-  height: 18%
+  height: 19%
   width: 100%
   background-color: #000000
   position: relative
@@ -478,9 +484,16 @@ body
 .mm.pm-display-none
   display: none
 
-.mm.pm-player-bar
-  height: 19vh
+.mm.videogular-container-wrapper
+  height: 21vh
+  position: fixed
+  display: none
+  bottom: 0%
   +bgGradient($pal-playerg1,$pal-playerg2)
+  +transition(all, .4s, linear, 0s)
+
+.mm.videogular-container-wrapper.popup
+  display: block
 
 .mm.videogular-container
   width: 100%
