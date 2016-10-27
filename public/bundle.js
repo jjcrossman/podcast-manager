@@ -27925,7 +27925,7 @@
 	    $scope.details = [];
 	    $scope.alreadySubscribed = [];
 	    moreFcty.getUserPodcastsFromDb().then(function (podcasts) {
-	      console.log("mineCtrl caught:", podcasts);
+	      console.log("moreCtrl caught:", podcasts);
 	      for (var i = 0; i < podcasts.length; i++) {
 	        $scope.alreadySubscribed.push(podcasts[i]);
 	      }
@@ -27970,6 +27970,7 @@
 	
 	  $scope.retrieveRSSFeedInformation = function (feed) {
 	    moreFcty.retrieveRSSFeedInformation(feed).then(function (data) {
+	      console.log(data);
 	      for (var i = 0; i < $scope.podcasts.length; i++) {
 	        if ($scope.podcasts[i].feed === data.feed) {
 	          $scope.podcasts[i].description = data.podcastDescription;
@@ -28169,54 +28170,32 @@
 	});
 	function moreFcty($http, $q) {
 	
-	  var itunesSearchUrl = "https://itunes.apple.com/search?term=";
-	  var itunesSearchQuery = "";
-	  var itunesSearchParameters = "&country=us&media=podcast&entity=podcast&limit=20";
-	
 	  return {
 	    searchItunes: function searchItunes(searchTerm) {
-	      itunesSearchQuery = searchTerm;
-	      return $http.get("" + itunesSearchUrl + itunesSearchQuery + itunesSearchParameters).then(function (res) {
-	        console.log(res);
-	        if (res.data.resultCount && res.data.resultCount !== 0) {
-	          console.log("Results retrieved from iTunes: " + res.data.resultCount);
-	          var titles = [],
-	              feeds = [],
-	              artworks = [];
-	          for (var i = 0; i < res.data.results.length; i++) {
-	            titles.push(res.data.results[i].trackName);
-	          }
-	          for (var _i = 0; _i < res.data.results.length; _i++) {
-	            feeds.push(res.data.results[_i].feedUrl);
-	          }
-	          for (var _i2 = 0; _i2 < res.data.results.length; _i2++) {
-	            artworks.push(res.data.results[_i2].artworkUrl600);
-	          }
-	          var returnObj = {
-	            podcastTitles: titles,
-	            podcastFeeds: feeds,
-	            podcastArtworks: artworks,
-	            podcastDescriptions: [],
-	            podcastEpisodeTitles: [],
-	            podcastEpisodeDescriptions: [],
-	            podcastEpisodeUrls: []
-	          };
-	
-	          console.log("Returning iTunes", returnObj);
-	
-	          return returnObj;
-	        }
-	      }).catch(function (error) {
-	        console.log("Error in moreFcty", error);
-	        return error;
+	      var itunesQuery = {
+	        searchTerm: searchTerm
+	      };
+	      return $http.post("/api/itunes", itunesQuery).then(function (podcasts) {
+	        console.log("searchItunes in moreFcty got back:", podcasts);
+	        return podcasts.data;
+	      }).catch(function (err) {
+	        console.log("Error in moreFcty", err);
 	      });
 	    },
 	    retrieveRSSFeedInformation: function retrieveRSSFeedInformation(feed) {
 	
-	      return $.get(feed).then(function (data) {
-	        var channel = $(data).find("channel");
-	        var item = $(data).find("item");
-	        var entry = $(data).find("entry");
+	      var feedObj = {
+	        feed: feed
+	      };
+	
+	      console.log(feedObj);
+	
+	      return $http.post("/api/rss", feedObj).then(function (rssFeeds) {
+	        console.log("moreFcty line 28: ", rssFeeds);
+	        var rss = rssFeeds.data;
+	        var channel = $(rss).find("channel");
+	        var item = $(rss).find("item");
+	        var entry = $(rss).find("entry");
 	        var returnObj = {
 	          podcastDescription: "",
 	          episodeTitles: [],
@@ -28226,6 +28205,11 @@
 	        };
 	
 	        var description = channel.find("description:first").text();
+	        if (!description) {
+	          description = channel.find("description:first").html();
+	          var end = description.lastIndexOf(">") - 4;
+	          description = description.slice(11, end);
+	        }
 	        returnObj.podcastDescription = description;
 	
 	        if (item) {
@@ -28233,7 +28217,18 @@
 	            var el = $(this);
 	
 	            var episodeTitle = el.find("title").text();
+	            if (!episodeTitle) {
+	              episodeTitle = el.find("description").html();
+	              var _end = episodeTitle.lastIndexOf(">") - 4;
+	              episodeTitle = episodeTitle.slice(11, _end);
+	            }
 	            var episodeDescription = el.find("description").text();
+	            if (!episodeDescription) {
+	              episodeDescription = el.find("description").html();
+	              var _end2 = episodeDescription.lastIndexOf(">") - 4;
+	              episodeDescription = episodeDescription.slice(11, _end2);
+	              console.log(episodeDescription);
+	            }
 	            var episodeUrl = el.find("enclosure").attr("url");
 	
 	            returnObj.episodeTitles.push(episodeTitle);
@@ -28245,7 +28240,17 @@
 	            var el = $(this);
 	
 	            var episodeTitle = el.find("title").text();
+	            if (!episodeTitle) {
+	              episodeTitle = el.find("description").html();
+	              var _end3 = episodeTitle.lastIndexOf(">") - 4;
+	              episodeTitle = episodeTitle.slice(11, _end3);
+	            }
 	            var episodeDescription = el.find("description").text();
+	            if (!episodeDescription) {
+	              episodeDescription = el.find("description").html();
+	              var _end4 = episodeDescription.lastIndexOf(">") - 4;
+	              episodeDescription = episodeDescription.slice(11, _end4);
+	            }
 	            var episodeUrl = el.find("enclosure").attr("url");
 	
 	            returnObj.episodeTitles.push(episodeTitle);
@@ -28253,6 +28258,7 @@
 	            returnObj.episodeUrls.push(episodeUrl);
 	          });
 	        }
+	        console.log(returnObj);
 	        return returnObj;
 	      }).catch(function (error) {
 	        console.log("error in moreFcty", error);

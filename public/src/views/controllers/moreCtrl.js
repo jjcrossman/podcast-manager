@@ -14,13 +14,13 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       } );
     $scope.searchTerm = "";
     $scope.whichView = "pm-mine-bar";
-    $timeout( function(){$scope.whichView = "pm-more-bar";}, 1);
+    $timeout( function(){ $scope.whichView = "pm-more-bar"; }, 1 );
     $scope.podcasts = [];
     $scope.details = [];
     $scope.alreadySubscribed = [];
     moreFcty.getUserPodcastsFromDb()
       .then( podcasts => {
-        console.log( "mineCtrl caught:", podcasts );
+        console.log( "moreCtrl caught:", podcasts );
         for (var i = 0; i < podcasts.length; i++) {
           $scope.alreadySubscribed.push( podcasts[i] );
         }
@@ -66,9 +66,10 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       } );
   }
 
-  $scope.retrieveRSSFeedInformation = ( feed ) => {
+  $scope.retrieveRSSFeedInformation = feed  => {
     moreFcty.retrieveRSSFeedInformation( feed )
     .then( data => {
+      console.log( data );
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].feed === data.feed ) {
           $scope.podcasts[i].description = data.podcastDescription;
