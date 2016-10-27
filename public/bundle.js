@@ -28176,6 +28176,7 @@
 	  return {
 	    searchItunes: function searchItunes(searchTerm) {
 	      itunesSearchQuery = searchTerm;
+	      return $http.get("/api/itunes");
 	      return $http.get("" + itunesSearchUrl + itunesSearchQuery + itunesSearchParameters).then(function (res) {
 	        console.log(res);
 	        if (res.data.resultCount && res.data.resultCount !== 0) {
