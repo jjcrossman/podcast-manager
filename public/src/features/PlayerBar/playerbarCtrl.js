@@ -8,9 +8,7 @@ export default function playerbarCtrl( $scope, $sce ) {
     this.isCompleted = false;
     this.API = null;
     this.onPlayerReady = function ( API ) {
-      console.log( "PLAYER API IS READY" );
             this.API = API;
-            this.API.stop();
     };
 
     this.onError = function (event) {
@@ -57,9 +55,7 @@ export default function playerbarCtrl( $scope, $sce ) {
         src: $sce.trustAsResourceUrl( $scope.episodeToPlay.url )
         , type: "audio/mp3"
       } ];
-      console.log( "fuck", this );
-
-      console.log( "playerBarReady fired", this.config );
+      console.log( "Playing episode: ", $scope.episodeToPlay.title );
     };
 
 

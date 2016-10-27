@@ -7,7 +7,6 @@ function moreFcty( $http, $q ) {
         searchTerm
       };
       return $http.post( "/api/itunes", itunesQuery ).then( podcasts => {
-        console.log( "searchItunes in moreFcty got back:", podcasts );
         return podcasts.data;
       } )
       .catch( err => {
@@ -21,11 +20,8 @@ function moreFcty( $http, $q ) {
         feed
       };
 
-      console.log( feedObj );
-
       return $http.post( "/api/rss", feedObj )
       .then( rssFeeds => {
-        console.log( "moreFcty line 28: ", rssFeeds );
       let rss = rssFeeds.data;
       let channel = $(rss).find("channel");
       let item = $(rss).find("item");
@@ -61,7 +57,6 @@ function moreFcty( $http, $q ) {
             episodeDescription = el.find("description").html();
             let end = episodeDescription.lastIndexOf(">") - 4;
             episodeDescription = episodeDescription.slice( 11, end );
-            console.log( episodeDescription );
           }
           let episodeUrl = el.find("enclosure").attr("url");
 
@@ -94,7 +89,6 @@ function moreFcty( $http, $q ) {
 
         } );
       }
-      console.log( returnObj );
       return returnObj;
     } ).catch( error => {
       console.log( "error in moreFcty", error );
@@ -102,7 +96,6 @@ function moreFcty( $http, $q ) {
   }
 
   , getUserPodcastsFromDb() {
-    console.log( "MoreFcty fired getUserPodcastsFromDb" );
     return $http.get( "/api/podcast" ).then( userWithPodcasts => {
       return userWithPodcasts.data.subscriptions;
     } )
@@ -113,7 +106,6 @@ function moreFcty( $http, $q ) {
   }
 
   , attachPodcastToUser( podcast ) {
-    console.log( "send to mongoDB ran in moreFcty" );
     //POST every episode to Episode collection
     //GET each episode's ObjectId
     //.push each ObjectId to preparedObj.episodes array
@@ -126,7 +118,7 @@ function moreFcty( $http, $q ) {
         , feed: podcast.feed
       }
       $http.post( "/api/podcast", preparedObj ).then( res => {
-        console.log( "/api/podcast POST says: ", res );
+        console.log( "Subscribed: ", !!res.data );
         return res;
       } )
       .catch( err => {
@@ -135,9 +127,8 @@ function moreFcty( $http, $q ) {
       } );
   }
   , removePodcastFromUser( podcast ) {
-    console.log( `removePodcast sent ${ podcast._id }` );
     return $http.delete( `/api/podcast/${ podcast._id }` ).then( res => {
-      console.log( res );
+      console.log( "Unsubscribed: ", !!res.data );
       return res;
     } )
     .catch( err => {
@@ -147,7 +138,6 @@ function moreFcty( $http, $q ) {
   }
   , getUserAvatar() {
       return $http.get( "/api/user/avatar" ).then( userAvatar => {
-        console.log( "User's avatar", userAvatar );
         return userAvatar.data;
       } )
       .catch( err => {

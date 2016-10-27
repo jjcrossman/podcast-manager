@@ -11,9 +11,8 @@ function mineFcty( $http ) {
         } );
       }
       , removePodcastFromUser( podcast ) {
-        console.log( `removePodcast sent ${ podcast._id }` );
         return $http.delete( `/api/podcast/${ podcast._id }` ).then( res => {
-          console.log( res );
+          console.log( "Unsubscribed: ", !!res.data );
           return res;
         } )
         .catch( err => {
@@ -22,7 +21,6 @@ function mineFcty( $http ) {
         } );
       }
       , attachPodcastToUser( podcast ) {
-        console.log( "sendPodcastToMongoDb ran in mineFcty" );
         //POST every episode to Episode collection
         //GET each episode's ObjectId
         //.push each ObjectId to preparedObj.episodes array
@@ -35,7 +33,7 @@ function mineFcty( $http ) {
             , feed: podcast.feed
           }
           return $http.post( "/api/podcast", preparedObj ).then( res => {
-            console.log( "/api/podcast POST says: ", res );
+            console.log( "Subscribed: ", !!res );
             return res;
           } )
           .catch( err => {
@@ -44,47 +42,84 @@ function mineFcty( $http ) {
           } );
         }
         , retrieveRSSFeedInformation( feed ) {
-          return $.get( feed ).then( function( data ) {
-            let item = $(data).find("item");
-            let entry = $(data).find("entry");
-            let returnObj = {
-              episodeTitles: []
-              , episodeDescriptions: []
-              , episodeUrls: []
-              , feed: feed
-            };
-            if ( item ) {
-              item.each( function() {
-                var el = $(this);
 
-                let episodeTitle = el.find("title").text();
-                let episodeDescription = el.find("description").text();
-                let episodeUrl = el.find("enclosure").attr("url");
+          let feedObj = {
+            feed
+          };
 
-                returnObj.episodeTitles.push( episodeTitle );
-                returnObj.episodeDescriptions.push( episodeDescription) ;
-                returnObj.episodeUrls.push( episodeUrl );
+          return $http.post( "/api/rss", feedObj )
+          .then( rssFeeds => {
+          let rss = rssFeeds.data;
+          let channel = $(rss).find("channel");
+          let item = $(rss).find("item");
+          let entry = $(rss).find("entry");
+          let returnObj = {
+            podcastDescription: ""
+            , episodeTitles: []
+            , episodeDescriptions: []
+            , episodeUrls: []
+            , feed: feed
+          };
 
-              } );
-            } else {
-              entry.each( function() {
-                var el = $(this);
+          let description = channel.find("description:first").text();
+          if ( !description ) {
+            description = channel.find("description:first").html();
+            let end = description.lastIndexOf(">") - 4;
+            description = description.slice( 11, end );
+          }
+          returnObj.podcastDescription = description;
 
-                let episodeTitle = el.find("title").text();
-                let episodeDescription = el.find("description").text();
-                let episodeUrl = el.find("enclosure").attr("url");
+          if ( item ) {
+            item.each( function() {
+              let el = $(this);
 
-                returnObj.episodeTitles.push( episodeTitle );
-                returnObj.episodeDescriptions.push( episodeDescription );
-                returnObj.episodeUrls.push( episodeUrl );
+              let episodeTitle = el.find("title").text();
+              if ( !episodeTitle ) {
+                episodeTitle = el.find("description").html();
+                let end = episodeTitle.lastIndexOf(">") - 4;
+                episodeTitle = episodeTitle.slice( 11, end );
+              }
+              let episodeDescription = el.find("description").text();
+              if ( !episodeDescription ) {
+                episodeDescription = el.find("description").html();
+                let end = episodeDescription.lastIndexOf(">") - 4;
+                episodeDescription = episodeDescription.slice( 11, end );
+              }
+              let episodeUrl = el.find("enclosure").attr("url");
 
-              } );
-            }
-            return returnObj;
-          } ).catch( error => {
-            console.log( "error in moreFcty", error );
-            return error;
-          } );
+              returnObj.episodeTitles.push( episodeTitle );
+              returnObj.episodeDescriptions.push( episodeDescription) ;
+              returnObj.episodeUrls.push( episodeUrl );
+
+            } );
+          } else {
+            entry.each( function() {
+              let el = $(this);
+
+              let episodeTitle = el.find("title").text();
+              if ( !episodeTitle ) {
+                episodeTitle = el.find("description").html();
+                let end = episodeTitle.lastIndexOf(">") - 4;
+                episodeTitle = episodeTitle.slice( 11, end );
+              }
+              let episodeDescription = el.find("description").text();
+              if ( !episodeDescription ) {
+                episodeDescription = el.find("description").html();
+                let end = episodeDescription.lastIndexOf(">") - 4;
+                episodeDescription = episodeDescription.slice( 11, end );
+              }
+              let episodeUrl = el.find("enclosure").attr("url");
+
+              returnObj.episodeTitles.push( episodeTitle );
+              returnObj.episodeDescriptions.push( episodeDescription );
+              returnObj.episodeUrls.push( episodeUrl );
+
+            } );
+          }
+          return returnObj;
+        } ).catch( error => {
+          console.log( "error in mineFcty", error );
+        } );
         }
         , getUserData() {
           return $http.get( "/api/auth/" ).then( userObj => {
