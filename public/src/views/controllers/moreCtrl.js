@@ -3,7 +3,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   function init() {
     moreFcty.getUserAvatar()
       .then( userAvatar => {
-        console.log( "moreCtrl received:", userAvatar );
         $scope.userAvatar = userAvatar;
         if ( !userAvatar ) {
           $(".pm-noavatar-icon").css("display", "inline-block");
@@ -14,13 +13,12 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       } );
     $scope.searchTerm = "";
     $scope.whichView = "pm-mine-bar";
-    $timeout( function(){$scope.whichView = "pm-more-bar";}, 1);
+    $timeout( function(){ $scope.whichView = "pm-more-bar"; }, 1 );
     $scope.podcasts = [];
     $scope.details = [];
     $scope.alreadySubscribed = [];
     moreFcty.getUserPodcastsFromDb()
       .then( podcasts => {
-        console.log( "mineCtrl caught:", podcasts );
         for (var i = 0; i < podcasts.length; i++) {
           $scope.alreadySubscribed.push( podcasts[i] );
         }
@@ -40,7 +38,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     $scope.details = [];
     moreFcty.searchItunes( searchTerm )
       .then( data => {
-        console.log( data );
         if ( data ) {
           for ( let i = 0; i < data.podcastTitles.length; i++ ) {
             $scope.podcasts.push( {
@@ -66,7 +63,7 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       } );
   }
 
-  $scope.retrieveRSSFeedInformation = ( feed ) => {
+  $scope.retrieveRSSFeedInformation = feed  => {
     moreFcty.retrieveRSSFeedInformation( feed )
     .then( data => {
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
@@ -84,12 +81,11 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   };
 
   $scope.populateDetails = ( podcast ) => {
-    console.log( "populateDetails fired", podcast );
     // check database for existing podcast
     // if it's there, rotate +
     for ( let j = 0; j < $scope.alreadySubscribed.length; j++ ) {
       if ( $scope.alreadySubscribed[j].feed === podcast.feed ) {
-        console.log( `Already subscribed to: ${ podcast.title }` );
+        console.log( "Already subscribed: ", !!podcast );
         $("#pm-subscribe-button").attr("class", "fa fa-plus mm pm-rotate");
         break;
       }
@@ -116,7 +112,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   $scope.flushDetails = () => {
     $timeout( function() {
         $scope.details = [];
-        console.log( "details flushed", $scope.details );
       }, 500);
     if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
       $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
@@ -137,13 +132,11 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       }, 1500);
       moreFcty.getUserPodcastsFromDb()
       .then( podcasts => {
-        console.log( "moreCtrl line 115",podcasts );
         for ( let i = 0; i < podcasts.length; i++ ) {
           if ( podcasts[i].title === $scope.detailsPodcastTitle && podcasts[i].description === $scope.detailsPodcastDescription && podcasts[i].artwork === $scope.detailsPodcastArtwork ) {
             $scope.saveForPossibleResubscribe = podcasts[i];
             moreFcty.removePodcastFromUser( podcasts[i] )
             .then( res => {
-              console.log( "moreCtrl line 132", res );
             } )
             .catch( err => {
               console.log( err );
@@ -155,7 +148,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
         console.log( err );
       } );
     } else {
-      console.log( "subscribeToPodcast fired" );
       $("p.pm-subscribed-alert").attr("id", "pm-subscribed");
       $("#pm-subscribe-button").attr("class", "fa fa-plus mm pm-rotate");
       $timeout( function() {
@@ -171,7 +163,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   };
 
   $scope.toggleEpisodeCard = ( detail ) => {
-    console.log( "toggleEpisodeCard was fired", detail );
     if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
       $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
       $(".mm.pm-episode-card").css( "opacity", "0" );
@@ -192,8 +183,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     if ( $scope.cardDescription === "" ) {
       $scope.cardDescription = "This episode's description could not be retrieved."
     }
-    //
-    console.log( "cardTitle", $scope.cardTitle );
 
   };
 
@@ -228,10 +217,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       detail = $scope.expansionNeedsDetail;
     }
 
-    // $scope.togglePlayerBar();
-
-    console.log(  "play this please", detail);
-
     $scope.episodeToPlay = {
       title: detail.title
       , podcastTitle: detail.podcastTitle
@@ -251,7 +236,6 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
       $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 24 ) + "...";
     }
 
-  console.log( "playEpisode fired", $scope.episodeToPlay );
   $scope.playerBarReady();
 
   };

@@ -4,7 +4,11 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.userAvatar = "";
     mineFcty.getUserData()
       .then( userObj => {
-        console.log( "mineCtrl received:", userObj );
+        if ( userObj.newUser ) {
+          console.log( "New user" );
+        } else {
+          console.log( "Extant user" );
+        }
         if ( userObj.avatar ) {
           $scope.userAvatar = userObj.avatar;
 
@@ -13,7 +17,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           $(".pm-noavatar-icon").css("display", "inline-block");
         }
         if ( !userObj.newUser ) {
-          console.log( "getUserPodcastsFromDb fired in init" );
           $scope.getUserPodcastsFromDb();
         }
         if ( userObj.newUser ) {
@@ -44,12 +47,11 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
   $scope.getUserPodcastsFromDb = () => {
     mineFcty.getUserPodcastsFromDb()
       .then( podcasts => {
-        console.log( "mine line 40", podcasts );
+        console.log( "User podcasts retrieved:", !!podcasts );
           $scope.podcasts = [];
         for (var i = 0; i < podcasts.length; i++) {
           $scope.podcasts.push( podcasts[i] );
         }
-        console.log( "mine line 45", $scope.podcasts );
       } )
       .catch( error => {
         console.log( "mineCtrl error:", error );
@@ -75,7 +77,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     $scope.detailsPodcastDescription = podcast.description;
     mineFcty.retrieveRSSFeedInformation( podcast.feed )
     .then( data => {
-      console.log( "RSS feed data in mineCtrl", data );
       for ( let i = 0; i < $scope.podcasts.length; i++ ) {
         if ( $scope.podcasts[i].feed === data.feed ) {
 
@@ -94,7 +95,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           }
         }
       }
-      $scope.$apply();
 
     } )
     .catch( error => {
@@ -105,7 +105,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
   $scope.flushDetails = () => {
     $timeout( function() {
         $scope.details = [];
-        console.log( "details flushed", $scope.details );
       }, 500);
     if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
       $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
@@ -135,7 +134,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
           $scope.saveForPossibleResubscribe = $scope.podcasts[i];
           mineFcty.removePodcastFromUser( $scope.podcasts[i] )
           .then( res => {
-            console.log( "remove from database" );
             $scope.getUserPodcastsFromDb();
           } )
           .catch( err => {
@@ -161,7 +159,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
   }
 
   $scope.toggleEpisodeCard = ( detail ) => {
-    console.log( "toggleEpisodeCard was fired", detail );
     if ( $(".mm.pm-episode-card").attr( "id" ) === "pm-show-episode-card" ) {
       $(".row.mm.pm-details-episodes-list").css( "overflow", "scroll" );
       $(".mm.pm-episode-card").css( "opacity", "0" );
@@ -182,8 +179,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
     if ( $scope.cardDescription === "" ) {
       $scope.cardDescription = "This episode's description could not be retrieved."
     }
-    //
-    console.log( "cardTitle and cardDescription", $scope.cardTitle );
 
   };
 
@@ -238,7 +233,6 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       $scope.playerPodcastTitle = $scope.playerPodcastTitle.slice( 0, 24 ) + "...";
     }
 
-  console.log( "playEpisode fired", $scope.episodeToPlay );
   $scope.playerBarReady();
 
   };

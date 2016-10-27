@@ -1,5 +1,6 @@
 const Podcast = require( "./Podcast.js" );
 const User = require( "../user/User.js" );
+const axios = require( "axios" );
 
 let itunesSearchUrl = "https://itunes.apple.com/search?term=";
 let itunesSearchQuery = "";
@@ -8,7 +9,6 @@ let itunesSearchParameters = "&country=us&media=podcast&entity=podcast&limit=20"
 module.exports = {
   getUserPodcasts( req, res ) {
     console.log( `This is /api/podcast GET` );
-    console.log( req.session.currentUser.fbId );
     User.findOne( { fbId: req.session.currentUser.fbId } )
       .populate( "subscriptions" )
       .exec( ( err, userWithPodcasts ) => {
@@ -51,8 +51,48 @@ module.exports = {
     } );
   }
   , queryItunes( req, res ) {
-    console.log( "8*8***888*888888*88*******888*888**8" );
-    console.log( req.body );
-    itunesSearchQuery = req.body;
+    console.log( `This is /api/itunes POST` );
+    itunesSearchQuery = req.body.searchTerm;
+    axios.get( `${ itunesSearchUrl }${ itunesSearchQuery }${ itunesSearchParameters }` ).then( iTunesRes => {
+      let itunes = iTunesRes.data;
+      if ( itunes.resultCount && itunes.resultCount !== 0 ) {
+      console.log( `Results retrieved from iTunes: ${ itunes.resultCount }` );
+      let titles = [], feeds = [], artworks = [];
+      for ( let i = 0; i < itunes.results.length; i++ ) {
+        titles.push( itunes.results[i].trackName );
+      }
+      for ( let i = 0; i < itunes.results.length; i++ ) {
+        feeds.push( itunes.results[i].feedUrl );
+      }
+      for ( let i = 0; i < itunes.results.length; i++ ) {
+        artworks.push( itunes.results[i].artworkUrl600 );
+      }
+      let returnObj = {
+        podcastTitles: titles
+        , podcastFeeds: feeds
+        , podcastArtworks: artworks
+        , podcastDescriptions: []
+        , podcastEpisodeTitles: []
+        , podcastEpisodeDescriptions: []
+        , podcastEpisodeUrls: []
+      }
+
+      return res.status( 200 ).json( returnObj );
+    } } )
+      .catch( error => {
+        console.log( "Error in server/podcastCtrl", error );
+        return error;
+      } );
+  }
+
+  , queryRss( req, res ) {
+    console.log( `This is /api/rss POST` );
+    console.log( "Scan RSS:", req.body.feed );
+    axios.get( req.body.feed ).then( rssRes => {
+      return res.status( 200 ).json( rssRes.data );
+    } )
+    .catch( err => {
+      console.log( err );
+    } );
   }
 };
