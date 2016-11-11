@@ -1,6 +1,8 @@
 <h1>Podcast Manager</h1>
 <h2>A single page application built using the MEAN stack</h2>
 
+<p>Subscribe to, manage and play your podcast subscriptions.</p>
+
 <h3>Technologies Used</h3>
 
 <ul>
@@ -17,5 +19,3 @@
 <li>Bootstrap</li>
 <li>Videogular</li>
 </ul>
-
-<p>Subscribe to, manage and play your podcast subscriptions.</p>
