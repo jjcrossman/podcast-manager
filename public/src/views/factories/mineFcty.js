@@ -81,6 +81,7 @@ function mineFcty( $http ) {
               }
               let episodeDescription = el.find("description").text();
               if ( !episodeDescription ) {
+
                 episodeDescription = el.find("description").html();
                 let end = episodeDescription.lastIndexOf(">") - 4;
                 episodeDescription = episodeDescription.slice( 11, end );

@@ -127,7 +127,7 @@ body
 .mm#pm-podcast-grid
   display: flex
   flex-wrap: wrap
-  height: 70vh
+  height: 89vh
   overflow-y: scroll
   overflow-x: hidden
   position: relative
@@ -135,10 +135,16 @@ body
   left: 0%
   +transition(all, .6s, cubic-bezier(0.42, 0, 0.54, 1.4), 0s)
 
+.mm#pm-podcast-grid.popup
+  height: 70vh
+
 .mm.pm-podcast-grid-square
-  height: 37.5%
+  height: 29%
   width: 50%
   position: relative
+
+.mm.pm-podcast-grid-square.popup
+  height: 37.5%
 
 #pm-details
 
@@ -348,10 +354,14 @@ body
 
 
 .mm.pm-details-episodes-list
-  height: 60%
+  height: 87%
   overflow: scroll
   position: relative
   background-color: #000000
+  +transition(all, .4s, cubic-bezier(0.4, 0, 0.94, 0.88), 0s)
+
+.mm.pm-details-episodes-list.pm-player-open
+  height: 57%
 
 .mm#detailstoggler
   display: none
@@ -361,13 +371,13 @@ body
     left: -100%
 
 .mm.pm-episodes-li
-  height: 18%
+  height: 13%
   width: 100%
   background-color: #000000
   position: relative
   display: flex
   align-items: center
-  +transition(all, 0.3s, cubic-bezier(0.54, 0.04, 0.85, 0.99), 0s)
+  +transition(all, .4s, cubic-bezier(0.4, 0, 0.94, 0.88), 0s)
   border-bottom: 1px solid rgba(255,255,255,0.4)
   .mm.pm-episode-title-wrapper
     display: flex
@@ -399,6 +409,8 @@ body
     color: #eeeeee
     opacity: 0.9
 
+.mm.pm-episodes-li.pm-player-open
+  height: 19%
 
 
 /*******************************************************/
@@ -413,12 +425,12 @@ body
   background: linear-gradient(black,#494949,black,#494949,black)
   display: none
   opacity: 0
-  height: 42.1vh
+  height: 61vh
   width: 100%
   position: fixed
   top: 39vh
   z-index: 1
-  +transition(all,.3s,linear,0s)
+  +transition(all,.3s,cubic-bezier(0.68, -0.55, 0.27, 1.55),0s)
 
 .mm.pm-episode-card-title-wrapper
   height: 20%
@@ -478,9 +490,16 @@ body
 .mm.pm-display-none
   display: none
 
-.mm.pm-player-bar
-  height: 19vh
+.mm.videogular-container-wrapper
+  height: 0vh
+  position: fixed
+  display: block
+  bottom: 0%
   +bgGradient($pal-playerg1,$pal-playerg2)
+  +transition(all, .8s, cubic-bezier(0.68, -0.55, 0.27, 1.55), 0s)
+
+.mm.videogular-container-wrapper.popup
+  display: block
 
 .mm.videogular-container
   width: 100%
@@ -494,6 +513,10 @@ body
   display: flex
   justify-content: flex-start
   flex-direction: row
+
+.mm.pm-vg-controls
+  height: 0px
+  +transition(all, .4s, cubic-bezier(0.68, -0.55, 0.27, 1.55), .4s)
 
 .mm.pm-player-bar-artwork-wrapper
   height: 70%
