@@ -33,6 +33,18 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     $scope.expansionNeedsDetail = "";
   }
 
+  $scope.$watch( "details", () => {
+    if ( parseInt( $(".mm.videogular-container-wrapper").css("height") ) >= 1 ) {
+      console.log( "fired" );
+      $timeout( () => {
+        $(".mm.pm-episodes-li").css("transition", "none");
+      }, 1 );
+      $timeout( () => {
+        $(".mm.pm-episodes-li").css("height", "19%");
+      }, 2 );
+    }
+  }, true );
+
   $scope.searchItunes = ( searchTerm ) => {
     $scope.podcasts = [];
     $scope.details = [];
@@ -201,21 +213,25 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
     }
   };
 
-  // $scope.togglePlayerBar = () => {
-    // if ( $(".mm.videogular-container-wrapper").css("display") === "none" ) {
-    //   $(".mm.videogular-container-wrapper").css("display", "block");
-    //   $(".mm#pm-podcast-grid").css("height", "60vh");
-    //   $(".mm.pm-podcast-grid-square").css("height", "53%");
-    //   $(".mm.pm-details-episodes-list").css("height", "73%");
-    //
-    // }
-  // };
+  $scope.togglePlayerBar = () => {
+    if ( $(".mm.videogular-container-wrapper").css("height") === "0px" ) {
+      $(".mm.videogular-container-wrapper").css("height", "21vh");
+      $(".mm.pm-vg-controls").css("height", "50px");
+      $(".mm#pm-podcast-grid").css("height", "68vh");
+      $(".mm.pm-podcast-grid-square").css("height", "38%");
+      $(".mm.pm-details-episodes-list").css("height", "57%");
+      $(".mm.pm-episodes-li").css("height", "19%");
+      $(".mm.pm-episode-card").css("height", "42.1vh");
+    }
+  };
 
   $scope.playEpisode = detail => {
 
     if ( !detail ) {
       detail = $scope.expansionNeedsDetail;
     }
+
+    $scope.togglePlayerBar();
 
     $scope.episodeToPlay = {
       title: detail.title
