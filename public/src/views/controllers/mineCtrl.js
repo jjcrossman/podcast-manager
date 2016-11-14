@@ -203,6 +203,8 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
       $(".mm#pm-podcast-grid").css("height", "68vh");
       $(".mm.pm-podcast-grid-square").css("height", "38%");
       $(".mm.pm-details-episodes-list").css("height", "57%");
+      $(".mm.pm-episodes-li").css("height", "19%");
+      $(".mm.pm-episode-card").css("height", "42.1vh");
 
     }
   };
