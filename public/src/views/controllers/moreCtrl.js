@@ -1,6 +1,7 @@
 function moreCtrl( $scope, $timeout, moreFcty ) {
 
   function init() {
+    $scope.showSearchBar = true;
     moreFcty.getUserAvatar()
       .then( userAvatar => {
         $scope.userAvatar = userAvatar;
@@ -35,9 +36,8 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
 
   $scope.$watch( "details", () => {
     if ( parseInt( $(".mm.videogular-container-wrapper").css("height") ) >= 1 ) {
-      console.log( "fired" );
       $timeout( () => {
-        $(".mm.pm-episodes-li").css("transition", "none");
+        $(".mm.pm-episodes-li").css("transition-duration", ".2s");
       }, 1 );
       $timeout( () => {
         $(".mm.pm-episodes-li").css("height", "19%");
@@ -46,6 +46,7 @@ function moreCtrl( $scope, $timeout, moreFcty ) {
   }, true );
 
   $scope.searchItunes = ( searchTerm ) => {
+    console.log( "Searching ITUNES" );
     $scope.podcasts = [];
     $scope.details = [];
     moreFcty.searchItunes( searchTerm )
