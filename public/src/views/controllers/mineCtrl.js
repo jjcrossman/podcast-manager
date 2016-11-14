@@ -64,10 +64,6 @@ function mineCtrl( $scope, $timeout, $state, mineFcty ) {
         for (var i = 0; i < podcasts.length; i++) {
           $scope.podcasts.push( podcasts[i] );
         }
-        if ( $scope.podcasts.length === 0 ) {
-          console.log( "New user has no subscriptions" );
-          $state.go( "more" );
-        }
       } )
       .catch( error => {
         console.log( "mineCtrl error:", error );
@@ -78,10 +74,11 @@ function mineCtrl( $scope, $timeout, $state, mineFcty ) {
 
     mineFcty.addNewUser( newUser )
       .then( madeNewUser => {
-        console.log( "mineCtrl 52", madeNewUser );
+        console.log( "New user has no subscriptions" );
+        $state.go( "more" );
       } )
       .catch( err => {
-        console.log( "mineCtrl 55", err );
+        console.log( err );
       } );
 
   };
