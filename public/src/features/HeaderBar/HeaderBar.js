@@ -6,9 +6,7 @@ function HeaderBar() {
     template: HeaderBarTmpl
     , restrict: "E"
     , scope: {
-        searchTerm: "="
-        , whichView: "="
-        , searchItunes: "="
+        whichView: "="
         , userAvatar: "="
         , toggleDropDown: "="
     }

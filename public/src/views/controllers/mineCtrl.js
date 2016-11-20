@@ -1,6 +1,7 @@
-function mineCtrl( $scope, $timeout, mineFcty ) {
+function mineCtrl( $scope, $timeout, $state, mineFcty ) {
 
   function init() {
+    $scope.showSearchBar = false;
     $scope.userAvatar = "";
     mineFcty.getUserData()
       .then( userObj => {
@@ -46,9 +47,8 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
 
   $scope.$watch( "details", () => {
     if ( parseInt( $(".mm.videogular-container-wrapper").css("height") ) >= 1 ) {
-      console.log( "fired" );
       $timeout( () => {
-        $(".mm.pm-episodes-li").css("transition", "none");
+        $(".mm.pm-episodes-li").css("transition-duration", ".2s");
       }, 1 );
       $timeout( () => {
         $(".mm.pm-episodes-li").css("height", "19%");
@@ -74,10 +74,11 @@ function mineCtrl( $scope, $timeout, mineFcty ) {
 
     mineFcty.addNewUser( newUser )
       .then( madeNewUser => {
-        console.log( "mineCtrl 52", madeNewUser );
+        console.log( "New user has no subscriptions" );
+        $state.go( "more" );
       } )
       .catch( err => {
-        console.log( "mineCtrl 55", err );
+        console.log( err );
       } );
 
   };

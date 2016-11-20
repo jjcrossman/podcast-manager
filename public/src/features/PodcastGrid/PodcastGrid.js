@@ -8,6 +8,9 @@ function PodcastGrid() {
     , scope: {
       podcasts: "="
       , populateDetails: "="
+      , searchTerm: "="
+      , searchItunes: "="
+      , showSearchBar: "="
       , detailsPodcastTitle: "="
       , detailsPodcastArtwork: "="
       , detailsPodcastDescription: "="

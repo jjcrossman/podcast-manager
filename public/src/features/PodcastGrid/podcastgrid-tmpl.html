@@ -104,18 +104,31 @@
 
   <div class="row mm" id="pm-podcast-grid">
 
+      <div ng-if="showSearchBar" class="mm search-bar-wrapper">
 
-        <div ng-repeat="podcast in podcasts track by $index" class="mm pm-podcast-grid-square">
-          <label for="detailstoggler" class="mm toggle">
-            <i ng-click="populateDetails( podcast )" id="" class="fa fa-info-circle" aria-hidden="true"></i>
-          </label>
-
-          <img ng-src="{{ podcast.artwork }}" class="mm pm-podcast-artwork"></img>
-
-          <div class="mm pm-podcast-grid-title-ticker">
-            <h3>{{ podcast.title }}</h3>
+        <form ng-submit="searchItunes( searchTerm )" class="form-inline">
+          <div class="form-group mm pm-header-search-bar">
+            <label class="sr-only" for="searching">Search bar</label>
+            <input ng-model="searchTerm" type="text" class="form-control" placeholder="Search">
           </div>
+        </form>
+
+        <i ng-click="searchItunes( searchTerm )" class="mm fa fa-search" id="pm-search-icon"></i>
+
+      </div>
+
+      <div ng-repeat="podcast in podcasts track by $index" class="mm pm-podcast-grid-square">
+        <label for="detailstoggler" class="mm toggle">
+          <i ng-click="populateDetails( podcast )" id="" class="fa fa-info-circle" aria-hidden="true"></i>
+        </label>
+
+        <img ng-src="{{ podcast.artwork }}" class="mm pm-podcast-artwork"></img>
+
+        <div class="mm pm-podcast-grid-title-ticker">
+          <h3>{{ podcast.title }}</h3>
         </div>
+      </div>
+
 
 
     </div>
