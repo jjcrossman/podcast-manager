@@ -1,7 +1,7 @@
 const express = require( "express" );
 const app = express();
 const session = require( "express-session" );
-const config = require( "./config/serverConfig.js" );
+// const config = require( "./config/serverConfig.js" );
 const passport = require( "passport" );
 const FacebookStrategy = require( "passport-facebook" ).Strategy;
 const { json } = require( "body-parser" );
