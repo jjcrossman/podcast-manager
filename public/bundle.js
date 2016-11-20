@@ -27486,7 +27486,7 @@
 /* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"container-fluid\">\n\n    <div class=\"row hm pm-header-bar\">\n        <div class=\"col-xs-12 hm pm-h100\">\n\n\n            <img src=\"" + __webpack_require__(55) + "\" id=\"pm-logo\">\n\n        </div>\n\n    </div>\n\n    <div class=\"row hm pm-button-bar\">\n\n        <div class=\"col-xs-12 hm pm-h100\">\n            <h2>\n        A PODCAST MANAGER\n      </h2>\n\n        </div>\n\n    </div>\n\n    <div class=\"row hm pm-gap\">\n\n    </div>\n\n    <login-box\n    login-facebook=\"loginFacebook\"\n    ></login-box>\n\n  <div class=\"row hm pm-try-it-bar\">\n\n      <div class=\"col-xs-12 hm pm-h100\">\n          <h2 ui-sref=\"mine\">\n      CHECK IT OUT\n    </h2>\n\n      </div>\n\n  </div>\n\n\n\n</div>\n";
+	module.exports = "<div class=\"container-fluid\">\n\n    <div class=\"row hm pm-header-bar\">\n        <div class=\"col-xs-12 hm pm-h100\">\n\n\n            <img src=\"" + __webpack_require__(55) + "\" id=\"pm-logo\">\n\n        </div>\n\n    </div>\n\n    <div class=\"row hm pm-button-bar\">\n\n        <div class=\"col-xs-12 hm pm-h100\">\n            <h2>\n        A PODCAST MANAGER\n      </h2>\n\n        </div>\n\n    </div>\n\n    <div class=\"row hm pm-gap\">\n\n    </div>\n\n    <login-box\n    login-facebook=\"loginFacebook\"\n    ></login-box>\n\n  <div class=\"row hm pm-try-it-bar\">\n\n      <div class=\"col-xs-12 hm pm-h100\">\n          <h2>\n      CHECK IT OUT\n    </h2>\n\n      </div>\n\n  </div>\n\n\n\n</div>\n";
 
 /***/ },
 /* 55 */
@@ -28747,7 +28747,7 @@
 /* 82 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row hm pm-login-box\">\n\n  <div class=\"hm pm-login-circle\">\n    <i class=\"fa fa-user pm-login-fa-user\" aria-hidden=\"true\"></i>\n\n  </div>\n  <div class=\"hm pm-text-align-center\">\n    <h3>SIGN IN</h3>\n    <h4>with</h4>\n\n  </div>\n\n      </div>\n\n<div class=\"row hm pm-login-icons\">\n<div class=\"col-xs-4 hm pm-h100\">\n  <i ui-sref=\"mine\" class=\"fa fa-twitter-square\" id=\"pm-login-twitter-icon\" aria-hidden=\"true\"></i>\n</div>\n\n<div class=\"col-xs-4 hm pm-h100\">\n  <i ng-click=\"loginFacebook()\" class=\"fa fa-facebook-square\" id=\"pm-login-facebook-icon\" aria-hidden=\"true\"></i>\n</div>\n\n<div class=\"col-xs-4 hm pm-h100\">\n  <i ui-sref=\"mine\" class=\"fa fa-google-plus-square\" id=\"pm-login-google-icon\" aria-hidden=\"true\"></i>\n</div>\n</div>\n";
+	module.exports = "<div class=\"row hm pm-login-box\">\n\n  <div class=\"hm pm-login-circle\">\n    <i class=\"fa fa-user pm-login-fa-user\" aria-hidden=\"true\"></i>\n\n  </div>\n  <div class=\"hm pm-text-align-center\">\n    <h3>SIGN IN</h3>\n    <h4>with</h4>\n\n  </div>\n\n      </div>\n\n<div class=\"row hm pm-login-icons\">\n<div class=\"col-xs-4 hm pm-h100\">\n  <i ng-click=\"loginFacebook()\" class=\"fa fa-twitter-square\" id=\"pm-login-twitter-icon\" aria-hidden=\"true\"></i>\n</div>\n\n<div class=\"col-xs-4 hm pm-h100\">\n  <i ng-click=\"loginFacebook()\" class=\"fa fa-facebook-square\" id=\"pm-login-facebook-icon\" aria-hidden=\"true\"></i>\n</div>\n\n<div class=\"col-xs-4 hm pm-h100\">\n  <i ng-click=\"loginFacebook()\" class=\"fa fa-google-plus-square\" id=\"pm-login-google-icon\" aria-hidden=\"true\"></i>\n</div>\n</div>\n";
 
 /***/ },
 /* 83 */
